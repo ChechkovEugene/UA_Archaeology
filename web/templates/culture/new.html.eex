@@ -1,0 +1,6 @@
+<h2>New culture</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: culture_path(@conn, :create) %>
+
+<%= link "Back", to: culture_path(@conn, :index) %>

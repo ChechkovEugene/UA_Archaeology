@@ -1,0 +1,13 @@
+<h2>Show culture</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @culture.name %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: culture_path(@conn, :edit, @culture) %>
+<%= link "Back", to: culture_path(@conn, :index) %>

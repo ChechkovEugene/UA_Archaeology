@@ -1,0 +1,26 @@
+<h2>Listing cultures</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for culture <- @cultures do %>
+    <tr>
+      <td><%= culture.name %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: culture_path(@conn, :show, culture), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: culture_path(@conn, :edit, culture), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: culture_path(@conn, :delete, culture), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New culture", to: culture_path(@conn, :new) %>
