@@ -16,6 +16,13 @@ defmodule UaArchaeology.SessionController do
     |> sign_in(user_params["password"], conn)
   end
 
+  def delete(conn, _params) do
+    conn
+    |> delete_session(:current_user)
+    |> put_flash(:info, "Вихід був успішний")
+    |> redirect(to: page_path(conn, :index))
+  end
+
   defp sign_in(user, password, conn) when is_nil(user) do
     conn
     |> put_flash(:error, "Невірна комбінація логін/пароль!")
@@ -26,7 +33,7 @@ defmodule UaArchaeology.SessionController do
     if checkpw(password, user.password_digest) do
       conn
       |> put_session(:current_user, %{id: user.id, username: user.username})
-      |> put_flash(:info, "Логін успішний")
+      |> put_flash(:info, "Логін успішний!")
       |> redirect(to: page_path(conn, :index))
     else
       conn
