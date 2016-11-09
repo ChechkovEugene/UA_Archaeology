@@ -36,4 +36,12 @@ defmodule UaArchaeology.SessionControllerTest do
     assert get_flash(conn, :error) == "Невірна комбінація логін/пароль!"
     assert redirected_to(conn) == page_path(conn, :index)
   end
+
+  test "deletes the user session", %{conn: conn} do
+    user = Repo.get_by(User, %{username: "test"})
+    conn = delete conn, session_path(conn, :delete, user)
+    refute get_session(conn, :current_user)
+    assert get_flash(conn, :info) == "Вихід був успішний!"
+    assert redirected_to(conn) == page_path(conn, :index)
+  end
 end
