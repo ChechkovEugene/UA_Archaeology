@@ -4,6 +4,7 @@ defmodule UaArchaeology.CultureController do
   alias UaArchaeology.Culture
 
   plug :assign_user
+  plug :authorize_user when action in [:new, :create, :update, :edit, :delete]
 
   def index(conn, _params) do
     cultures = Repo.all(Culture)
@@ -89,5 +90,17 @@ defmodule UaArchaeology.CultureController do
     |> put_flash(:error, "Невірний користувач!")
     |> redirect(to: page_path(conn, :index))
     |> halt
+  end
+
+  defp authorize_user(conn, _opts) do
+    user = get_session(conn, :current_user)
+    if user && Integer.to_string(user.id) == conn.params["user_id"] do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Ви не авторизовані для редагування цієї культури!")
+      |> redirect(to: page_path(conn, :index))
+      |> halt()
+    end
   end
 end
