@@ -3,7 +3,8 @@ defmodule UaArchaeology.Culture do
 
   schema "cultures" do
     field :name, :string
-
+    belongs_to :user, UaArchaeology.User
+    
     timestamps()
   end
 

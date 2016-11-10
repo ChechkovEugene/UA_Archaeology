@@ -3,6 +3,8 @@ defmodule UaArchaeology.CultureController do
 
   alias UaArchaeology.Culture
 
+  plug :assign_user
+
   def index(conn, _params) do
     cultures = Repo.all(Culture)
     render(conn, "index.html", cultures: cultures)
@@ -20,7 +22,7 @@ defmodule UaArchaeology.CultureController do
       {:ok, _culture} ->
         conn
         |> put_flash(:info, "Culture created successfully.")
-        |> redirect(to: culture_path(conn, :index))
+        |> redirect(to: user_culture_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -45,7 +47,7 @@ defmodule UaArchaeology.CultureController do
       {:ok, culture} ->
         conn
         |> put_flash(:info, "Culture updated successfully.")
-        |> redirect(to: culture_path(conn, :show, culture))
+        |> redirect(to: user_culture_path(conn, :show, conn.assigns[:user], culture))
       {:error, changeset} ->
         render(conn, "edit.html", culture: culture, changeset: changeset)
     end
@@ -60,6 +62,16 @@ defmodule UaArchaeology.CultureController do
 
     conn
     |> put_flash(:info, "Culture deleted successfully.")
-    |> redirect(to: culture_path(conn, :index))
+    |> redirect(to: user_culture_path(conn, :index, conn.assigns[:user]))
+  end
+
+  defp assign_user(conn, _opts) do
+    case conn.params do
+      %{"user_id" => user_id} ->
+        user = Repo.get(UaArchaeology.User, user_id)
+        assign(conn, :user, user)
+      _->
+        conn
+    end
   end
 end

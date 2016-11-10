@@ -17,8 +17,9 @@ defmodule UaArchaeology.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/cultures", CultureController
-    resources "/users", UserController
+    resources "/users", UserController do
+      resources "/cultures", CultureController
+    end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 

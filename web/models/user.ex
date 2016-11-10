@@ -7,7 +7,8 @@ defmodule UaArchaeology.User do
     field :username, :string
     field :email, :string
     field :password_digest, :string
-
+    has_many :cultures, UaArchaeology.Culture
+    
     timestamps()
 
     #Virtual Fields
