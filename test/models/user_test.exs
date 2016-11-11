@@ -2,7 +2,6 @@ defmodule UaArchaeology.UserTest do
   use UaArchaeology.ModelCase
 
   alias UaArchaeology.User
-  alias UaArchaeology.Role
   alias UaArchaeology.TestHelper
 
   @valid_attrs %{email: "test.archaeo@gmail.com", password: "iddqdd",

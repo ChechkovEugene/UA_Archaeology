@@ -2,8 +2,6 @@ defmodule UaArchaeology.CultureControllerTest do
   use UaArchaeology.ConnCase
 
   alias UaArchaeology.Culture
-  alias UaArchaeology.User
-  alias UaArchaeology.Role
   alias UaArchaeology.TestHelper
 
   @valid_attrs %{name: "some content"}
@@ -86,7 +84,7 @@ defmodule UaArchaeology.CultureControllerTest do
   end
 
   test "redirects when trying to edit a culture for a different user",
-    %{conn: conn, user: user, role: role, culture: culture} do
+    %{conn: conn, role: role, culture: culture} do
       {:ok, other_user} = TestHelper.create_user(role,
         %{email: "test2@test.com", username: "test2", password: "test",
         password_confirmation: "test"})

@@ -2,9 +2,8 @@ defmodule UaArchaeology.UserControllerTest do
   use UaArchaeology.ConnCase
 
   alias UaArchaeology.User
-  alias UaArchaeology.Role
   alias UaArchaeology.TestHelper
-  
+
   @valid_create_attrs %{email: "test.archaeo@gmail.com", password: "iddqdd",
     password_confirmation: "iddqdd", username: "Indiana Jones"}
   @valid_attrs %{email: "test.archaeo@gmail.com",  username: "Indiana Jones"}
