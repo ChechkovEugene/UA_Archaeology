@@ -18,23 +18,9 @@ defmodule UaArchaeology.CultureControllerTest do
     {:ok, conn: conn, user: user, role: role, culture: culture}
   end
 
-  defp create_user do
-    User.changeset(%User{}, %{email: "test@test.com", username: "test",
-      password: "test", password_confirmation: "test"})
-    |> Repo.insert
-  end
-
   defp login_user(conn, user) do
     post conn, session_path(conn, :create), user: %{username: user.username,
       password: user.password}
-  end
-
-  defp build_culture(user) do
-    changeset =
-      user
-      |> build_assoc(:cultures)
-      |> Culture.changeset(@valid_attrs)
-    Repo.insert!(changeset)
   end
 
   test "lists all entries on index", %{conn: conn, user: user} do
@@ -74,15 +60,13 @@ defmodule UaArchaeology.CultureControllerTest do
   end
 
   test "renders form for editing chosen resource",
-    %{conn: conn, user: user} do
-      culture = build_culture(user)
+    %{conn: conn, user: user, culture: culture} do
       conn = get conn, user_culture_path(conn, :edit, user, culture)
       assert html_response(conn, 200) =~ "Edit culture"
   end
 
   test "updates chosen resource and redirects when data is valid",
-    %{conn: conn, user: user} do
-        culture = build_culture(user)
+    %{conn: conn, user: user, culture: culture} do
         conn = put conn, user_culture_path(conn, :update, user, culture),
           culture: @valid_attrs
         assert redirected_to(conn) == user_culture_path(conn, :show, user, culture)
@@ -90,16 +74,26 @@ defmodule UaArchaeology.CultureControllerTest do
     end
 
   test "does not update chosen resource and renders errors when data is invalid",
-    %{conn: conn, user: user} do
-      culture = build_culture(user)
+    %{conn: conn, user: user, culture: culture} do
       conn = put conn, user_culture_path(conn, :update, user, culture), culture: %{"name" => nil}
       assert html_response(conn, 200) =~ "Edit culture"
   end
 
-  test "deletes chosen resource", %{conn: conn, user: user} do
-    culture = build_culture(user)
+  test "deletes chosen resource", %{conn: conn, user: user, culture: culture} do
     conn = delete conn, user_culture_path(conn, :delete, user, culture)
     assert redirected_to(conn) == user_culture_path(conn, :index, user)
     refute Repo.get(Culture, culture.id)
+  end
+
+  test "redirects when trying to edit a culture for a different user",
+    %{conn: conn, user: user, role: role, culture: culture} do
+      {:ok, other_user} = TestHelper.create_user(role,
+        %{email: "test2@test.com", username: "test2", password: "test",
+        password_confirmation: "test"})
+      conn = get conn, user_culture_path(conn, :edit, other_user, culture)
+      assert get_flash(conn, :error) ==
+         "Ви не авторизовані для редагування цієї культури!"
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert conn.halted
   end
 end

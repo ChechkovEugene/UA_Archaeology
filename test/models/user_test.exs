@@ -2,6 +2,8 @@ defmodule UaArchaeology.UserTest do
   use UaArchaeology.ModelCase
 
   alias UaArchaeology.User
+  alias UaArchaeology.Role
+  alias UaArchaeology.TestHelper
 
   @valid_attrs %{email: "test.archaeo@gmail.com", password: "iddqdd",
     password_confirmation: "iddqdd", username: "some content"}
@@ -16,7 +18,7 @@ defmodule UaArchaeology.UserTest do
     Map.put(@valid_attrs, :role_id, role.id)
   end
 
-  test "changeset with valid attributes" do
+  test "changeset with valid attributes", %{role: role} do
     changeset = User.changeset(%User{}, valid_attrs(role))
     assert changeset.valid?
   end

@@ -2,6 +2,9 @@ defmodule UaArchaeology.UserControllerTest do
   use UaArchaeology.ConnCase
 
   alias UaArchaeology.User
+  alias UaArchaeology.Role
+  alias UaArchaeology.TestHelper
+  
   @valid_create_attrs %{email: "test.archaeo@gmail.com", password: "iddqdd",
     password_confirmation: "iddqdd", username: "Indiana Jones"}
   @valid_attrs %{email: "test.archaeo@gmail.com",  username: "Indiana Jones"}
@@ -62,7 +65,7 @@ defmodule UaArchaeology.UserControllerTest do
     %{conn: conn, user_role: user_role} do
       user = Repo.insert! %User{}
       conn = put conn, user_path(conn, :update, user),
-        user: valid_create_attrs(role)
+        user: valid_create_attrs(user_role)
       assert redirected_to(conn) == user_path(conn, :show, user)
       assert Repo.get_by(User, @valid_attrs)
   end
