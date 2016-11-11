@@ -8,7 +8,8 @@ defmodule UaArchaeology.User do
     field :email, :string
     field :password_digest, :string
     has_many :cultures, UaArchaeology.Culture
-    
+    belongs_to :role, UaArchaeology.Role
+
     timestamps()
 
     #Virtual Fields
@@ -21,8 +22,10 @@ defmodule UaArchaeology.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:username, :email, :password, :password_confirmation])
-    |> validate_required([:username, :email, :password, :password_confirmation])
+    |> cast(params, [:username, :email, :password,
+      :password_confirmation, :role_id])
+    |> validate_required([:username, :email, :password,
+      :password_confirmation, :role_id])
     |> hash_password
   end
 
