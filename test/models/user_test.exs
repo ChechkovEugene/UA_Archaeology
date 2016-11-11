@@ -7,8 +7,17 @@ defmodule UaArchaeology.UserTest do
     password_confirmation: "iddqdd", username: "some content"}
   @invalid_attrs %{}
 
+  setup do
+    {:ok, role} = TestHelper.create_role(%{name: "user", admin: false})
+    {:ok, role: role}
+  end
+
+  defp valid_attrs(role) do
+    Map.put(@valid_attrs, :role_id, role.id)
+  end
+
   test "changeset with valid attributes" do
-    changeset = User.changeset(%User{}, @valid_attrs)
+    changeset = User.changeset(%User{}, valid_attrs(role))
     assert changeset.valid?
   end
 

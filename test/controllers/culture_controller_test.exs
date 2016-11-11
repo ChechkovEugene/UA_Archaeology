@@ -3,15 +3,19 @@ defmodule UaArchaeology.CultureControllerTest do
 
   alias UaArchaeology.Culture
   alias UaArchaeology.User
+  alias UaArchaeology.Role
+  alias UaArchaeology.TestHelper
 
   @valid_attrs %{name: "some content"}
   @invalid_attrs %{}
 
   setup do
-    {:ok, user} = create_user
-    conn = build_conn()
-    |> login_user(user)
-    {:ok, conn: conn, user: user}
+    {:ok, role} = TestHelper.create_role(%{name: "User Role", admin: false})
+    {:ok, user} = TestHelper.create_user(role, %{email: "test@test.com",
+      username: "testuser", password: "test", password_confirmation: "test"})
+    {:ok, culture} = TestHelper.create_culture(user, %{name: "Test Culture"})
+    conn = build_conn() |> login_user(user)
+    {:ok, conn: conn, user: user, role: role, culture: culture}
   end
 
   defp create_user do
