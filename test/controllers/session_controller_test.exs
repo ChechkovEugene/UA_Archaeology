@@ -1,23 +1,14 @@
 defmodule UaArchaeology.SessionControllerTest do
   use UaArchaeology.ConnCase
+
   alias UaArchaeology.User
+  alias UaArchaeology.TestHelper
 
   setup do
-    {:ok, user} = create_user
-    conn = build_conn()
-    |> login_user(user)
+    {:ok, role} = TestHelper.create_role(%{name: "User", admin: false})
+    {:ok, _user} = TestHelper.create_user(role, %{username: "test",
+      password: "test", password_confirmation: "test", email: "test@test.com"})
     {:ok, conn: build_conn()}
-  end
-
-  defp create_user do
-    User.changeset(%User{}, %{email: "test@test.com", username: "test",
-      password: "test", password_confirmation: "test"})
-    |> Repo.insert
-  end
-
-  defp login_user(conn, user) do
-    post conn, session_path(conn, :create), user: %{username: user.username,
-      password: user.password}
   end
 
   test "shows the login form", %{conn: conn} do
