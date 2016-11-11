@@ -49,21 +49,21 @@ defmodule UaArchaeology.CultureController do
   end
 
   def update(conn, %{"id" => id, "culture" => culture_params}) do
-    culture = Repo.get!(assoc(conn.assigns[:user], :cultures), id)
-    changeset = Culture.changeset(culture, culture_params)
+      culture = Repo.get!(assoc(conn.assigns[:user], :cultures), id)
+      changeset = Culture.changeset(culture, culture_params)
 
-    case Repo.update(changeset) do
-      {:ok, culture} ->
-        conn
-        |> put_flash(:info, "Culture updated successfully.")
-        |> redirect(to: user_culture_path(conn, :show, conn.assigns[:user], culture))
-      {:error, changeset} ->
-        render(conn, "edit.html", culture: culture, changeset: changeset)
-    end
+      case Repo.update(changeset) do
+        {:ok, culture} ->
+          conn
+          |> put_flash(:info, "Culture updated successfully.")
+          |> redirect(to: user_culture_path(conn, :show, conn.assigns[:user], culture))
+        {:error, changeset} ->
+          render(conn, "edit.html", culture: culture, changeset: changeset)
+      end
   end
 
   def delete(conn, %{"id" => id}) do
-    culture = Repo.get!(assoc(conn.assings[:user], :cultures), id)
+    culture = Repo.get!(assoc(conn.assigns[:user], :cultures), id)
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).

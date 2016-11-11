@@ -3,10 +3,21 @@ defmodule UaArchaeology.SessionControllerTest do
   alias UaArchaeology.User
 
   setup do
-    User.changeset(%User{}, %{username: "test", password: "test",
-      password_confirmation: "test", email: "test.archaeo@gmail.com"})
-    |> Repo.insert
+    {:ok, user} = create_user
+    conn = build_conn()
+    |> login_user(user)
     {:ok, conn: build_conn()}
+  end
+
+  defp create_user do
+    User.changeset(%User{}, %{email: "test@test.com", username: "test",
+      password: "test", password_confirmation: "test"})
+    |> Repo.insert
+  end
+
+  defp login_user(conn, user) do
+    post conn, session_path(conn, :create), user: %{username: user.username,
+      password: user.password}
   end
 
   test "shows the login form", %{conn: conn} do
