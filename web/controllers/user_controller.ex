@@ -3,6 +3,35 @@ defmodule UaArchaeology.UserController do
 
   alias UaArchaeology.User
 
+  plug :authorize_admin when action in [:new, :create]
+  plug :authorize_user when action in [:edit, :update, :delete]
+
+  defp authorize_user(conn, _) do
+    user = get_session(conn, :current_user)
+    if user && (Integer.to_string(user.id) == conn.params["id"] ||
+      UaArchaeology.RoleChecker.is_admin?(user)) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Ви не авторизовані для зміни цього користувача!")
+      |> redirect(to: page_path(conn, :index))
+      |> halt()
+    end
+  end
+
+  defp authorize_admin(conn, _) do
+    user = get_session(conn, :current_user)
+    if user && UaArchaeology.RoleChecker.is_admin?(user) do
+      conn
+    else
+      conn
+      |> put_flash(:error,
+        "Ви не авторизовані для створення нових користувачів!")
+      |> redirect(to: page_path(conn, :index))
+      |> halt()
+    end
+  end
+
   def index(conn, _params) do
     users = Repo.all(User)
     render(conn, "index.html", users: users)
