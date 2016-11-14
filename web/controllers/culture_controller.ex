@@ -3,6 +3,7 @@ defmodule UaArchaeology.CultureController do
 
   alias UaArchaeology.Culture
 
+  plug :scrub_params, "culture" when action in [:create, :update]
   plug :assign_user
   plug :authorize_user when action in [:new, :create, :update, :edit, :delete]
 
@@ -63,16 +64,16 @@ defmodule UaArchaeology.CultureController do
   end
 
   def delete(conn, %{"id" => id}) do
-    culture = Repo.get!(assoc(conn.assigns[:user], :cultures), id)
+      culture = Repo.get!(assoc(conn.assigns[:user], :cultures), id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(culture)
+      # Here we use delete! (with a bang) because we expect
+      # it to always work (and if it does not, it will raise).
+      Repo.delete!(culture)
 
-    conn
-    |> put_flash(:info, "Culture deleted successfully.")
-    |> redirect(to: user_culture_path(conn, :index, conn.assigns[:user]))
-  end
+      conn
+      |> put_flash(:info, "Культура успішно видалена.")
+      |> redirect(to: user_culture_path(conn, :index, conn.assigns[:user]))
+    end
 
   defp assign_user(conn, _opts) do
     case conn.params do

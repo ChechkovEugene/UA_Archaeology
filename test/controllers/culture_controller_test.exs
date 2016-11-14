@@ -3,22 +3,22 @@ defmodule UaArchaeology.CultureControllerTest do
 
   alias UaArchaeology.Culture
   alias UaArchaeology.TestHelper
+  import UaArchaeology.Factory
 
   @valid_attrs %{name: "some content"}
   @invalid_attrs %{}
 
   setup do
-    {:ok, role} = TestHelper.create_role(%{name: "User Role", admin: false})
-    {:ok, user} = TestHelper.create_user(role, %{email: "test@test.com",
-      username: "testuser", password: "test", password_confirmation: "test"})
-    {:ok, culture} = TestHelper.create_culture(user, %{name: "Test Culture"})
+    role = insert(:role)
+    user = insert(:user, role: role)
+    culture = insert(:culture, user: user)
     conn = build_conn() |> login_user(user)
     {:ok, conn: conn, user: user, role: role, culture: culture}
   end
 
   defp login_user(conn, user) do
-    post conn, session_path(conn, :create), user: %{username: user.username,
-      password: user.password}
+    post conn, session_path(conn, :create),
+      user: %{username: user.username, password: user.password}
   end
 
   test "lists all entries on index", %{conn: conn, user: user} do
