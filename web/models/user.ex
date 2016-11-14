@@ -22,10 +22,10 @@ defmodule UaArchaeology.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:username, :email, :password,
-      :password_confirmation, :role_id])
-    |> validate_required([:username, :email, :password,
-      :password_confirmation, :role_id])
+    |> cast(params, [:username, :email, :password, :password_confirmation,
+      :role_id])
+    |> validate_required([:username, :email, :password, :password_confirmation,
+      :role_id])
     |> hash_password
   end
 
