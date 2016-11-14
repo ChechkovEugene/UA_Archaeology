@@ -94,4 +94,66 @@ defmodule UaArchaeology.CultureControllerTest do
       assert redirected_to(conn) == page_path(conn, :index)
       assert conn.halted
   end
+
+  test "redirects when trying to delete a culture for a different user",
+    %{conn: conn, role: role, culture: culture} do
+      {:ok, other_user} = TestHelper.create_user(role,
+        %{email: "test2@test.com", username: "test2", password: "test",
+         password_confirmation: "test"})
+      conn = delete conn, user_culture_path(conn, :delete, other_user, culture)
+      assert get_flash(conn, :error) ==
+        "Ви не авторизовані для редагування цієї культури!"
+      assert redirected_to(conn) == page_path(conn, :index)
+      assert conn.halted
+  end
+
+  test "renders form for editing chosen resource when logged in as admin",
+    %{conn: conn, user: user, culture: culture} do
+      {:ok, role}  = TestHelper.create_role(%{name: "Admin", admin: true})
+      {:ok, admin} = TestHelper.create_user(role, %{username: "admin",
+        email: "admin@test.com", password: "test",
+        password_confirmation: "test"})
+      conn =
+      login_user(conn, admin)
+      |> get(user_culture_path(conn, :edit, user, culture))
+      assert html_response(conn, 200) =~ "Edit post"
+  end
+
+  test "updates chosen resource and redirects when data is valid when
+    logged in as admin", %{conn: conn, user: user, culture: culture} do
+      {:ok, role}  = TestHelper.create_role(%{name: "Admin", admin: true})
+      {:ok, admin} = TestHelper.create_user(role, %{username: "admin",
+        email: "admin@test.com", password: "test", password_confirmation: "test"})
+      conn =
+      login_user(conn, admin)
+      |> put(user_culture_path(conn, :update, user, culture), culture: @valid_attrs)
+      assert redirected_to(conn) == user_culture_path(conn, :show, user, culture)
+      assert Repo.get_by(Culture, @valid_attrs)
+  end
+
+  test "does not update chosen resource and renders errors when data is
+    invalid when logged in as admin", %{conn: conn, user: user,
+     culture: culture} do
+       {:ok, role}  = TestHelper.create_role(%{name: "Admin", admin: true})
+       {:ok, admin} = TestHelper.create_user(role, %{username: "admin",
+        email: "admin@test.com", password: "test", password_confirmation: "test"})
+          conn =
+          login_user(conn, admin)
+          |> put(user_culture_path(conn, :update, user, culture),
+            culture: %{"title" => nil})
+          assert html_response(conn, 200) =~ "Edit culture"
+  end
+
+  test "deletes chosen resource when logged in as admin",
+    %{conn: conn, user: user, culture: culture} do
+      {:ok, role}  = TestHelper.create_role(%{name: "Admin", admin: true})
+      {:ok, admin} = TestHelper.create_user(role,
+       %{username: "admin", email: "admin@test.com", password: "test",
+       password_confirmation: "test"})
+        conn =
+        login_user(conn, admin)
+        |> delete(user_culture_path(conn, :delete, user, culture))
+        assert redirected_to(conn) == user_culture_path(conn, :index, user)
+        refute Repo.get(Culture, culture.id)
+  end
 end
