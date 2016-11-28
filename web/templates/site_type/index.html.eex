@@ -1,0 +1,30 @@
+<h2>Listing site types</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for site_type <- @site_types do %>
+    <tr>
+      <td><%= site_type.name %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: user_site_type_path(@conn, :show, @user, site_type),
+          class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_site_type_path(@conn, :edit, @user, site_type),
+          class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_site_type_path(@conn, :delete, @user, site_type),
+          method: :delete, data: [confirm: "Are you sure?"],
+            class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New site type", to: user_site_type_path(@conn, :new, @user) %>

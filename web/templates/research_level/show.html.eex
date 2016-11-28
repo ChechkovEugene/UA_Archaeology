@@ -1,0 +1,14 @@
+<h2>Show research level</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @research_level.name %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_research_level_path(@conn, :edit, @user,
+  @research_level) %>
+<%= link "Back", to: user_research_level_path(@conn, :index, @user) %>

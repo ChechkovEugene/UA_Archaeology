@@ -1,0 +1,13 @@
+<h2>Show object type</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @object_type.name %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_object_type_path(@conn, :edit, @user, @object_type) %>
+<%= link "Back", to: user_object_type_path(@conn, :index, @user) %>

@@ -1,0 +1,30 @@
+<h2>Listing object types</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for object_type <- @object_types do %>
+    <tr>
+      <td><%= object_type.name %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: user_object_type_path(@conn, :show, @user, object_type),
+          class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_object_type_path(@conn, :edit, @user, object_type),
+          class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_object_type_path(@conn, :delete, @user,
+          object_type), method: :delete, data: [confirm: "Are you sure?"],
+            class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New object type", to: user_object_type_path(@conn, :new, @user) %>

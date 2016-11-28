@@ -8,6 +8,9 @@ defmodule UaArchaeology.User do
     field :email, :string
     field :password_digest, :string
     has_many :cultures, UaArchaeology.Culture
+    has_many :object_types, UaArchaeology.ObjectType
+    has_many :site_types, UaArchaeology.SiteType
+    has_many :research_levels, UaArchaeology.ResearchLevel
     belongs_to :role, UaArchaeology.Role
 
     timestamps()

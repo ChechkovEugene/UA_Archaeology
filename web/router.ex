@@ -20,6 +20,15 @@ defmodule UaArchaeology.Router do
     resources "/users", UserController do
       resources "/cultures", CultureController
     end
+    resources "/users", UserController do
+      resources "/object_types", ObjectTypeController
+    end
+    resources "/users", UserController do
+      resources "/site_types", SiteTypeController
+    end
+    resources "/users", UserController do
+      resources "/research_levels", ResearchLevelController
+    end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 

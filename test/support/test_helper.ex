@@ -3,6 +3,8 @@ defmodule UaArchaeology.TestHelper do
   alias UaArchaeology.User
   alias UaArchaeology.Role
   alias UaArchaeology.Culture
+  alias UaArchaeology.ObjectType
+  alias UaArchaeology.SiteType
 
   import Ecto, only: [build_assoc: 2]
 
@@ -24,6 +26,20 @@ defmodule UaArchaeology.TestHelper do
     user
     |> build_assoc(:cultures)
     |> Culture.changeset(%{name: name})
+    |> Repo.insert
+  end
+
+  def create_object_type(user, %{name: name}) do
+    user
+    |> build_assoc(:object_type)
+    |> ObjectType.changeset(%{name: name})
+    |> Repo.insert
+  end
+
+  def create_site_type(user, %{name: name}) do
+    user
+    |> build_assoc(:site_type)
+    |> SiteType.changeset(%{name: name})
     |> Repo.insert
   end
 end

@@ -1,0 +1,13 @@
+<h2>Show site type</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @site_type.name %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_site_type_path(@conn, :edit, @user, @site_type) %>
+<%= link "Back", to: user_site_type_path(@conn, :index, @user) %>

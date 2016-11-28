@@ -4,6 +4,9 @@ defmodule UaArchaeology.Factory do
   alias UaArchaeology.Role
   alias UaArchaeology.User
   alias UaArchaeology.Culture
+  alias UaArchaeology.ObjectType
+  alias UaArchaeology.SiteType
+  alias UaArchaeology.ResearchLevel
 
   def role_factory do
     %Role{
@@ -25,6 +28,27 @@ defmodule UaArchaeology.Factory do
   def culture_factory do
     %Culture{
       name: "Culture",
+      user: build(:user)
+    }
+  end
+
+  def object_type_factory do
+    %ObjectType{
+      name: "ObjectType",
+      user: build(:user)
+    }
+  end
+
+  def site_type_factory do
+    %SiteType{
+      name: "SiteType",
+      user: build(:user)
+    }
+  end
+
+  def research_level_factory do
+    %ResearchLevel{
+      name: "ResearchLevel",
       user: build(:user)
     }
   end

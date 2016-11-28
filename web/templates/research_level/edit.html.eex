@@ -1,0 +1,7 @@
+<h2>Edit research level</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: user_research_level_path(@conn, :update, @user,
+                        @research_level) %>
+
+<%= link "Back", to: user_research_level_path(@conn, :index, @user) %>
