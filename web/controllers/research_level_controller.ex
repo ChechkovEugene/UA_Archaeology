@@ -10,7 +10,7 @@ defmodule UaArchaeology.ResearchLevelController do
   def index(conn, _params) do
     research_levels = Repo.all(ResearchLevel)
     # research_levels = Repo.all(assoc(conn.assigns[:user], :research_levels))
-    render(conn, "index.html", site_types: research_levels)
+    render(conn, "index.html", research_levels: research_levels)
   end
 
   def new(conn, _params) do
@@ -40,7 +40,7 @@ defmodule UaArchaeology.ResearchLevelController do
   def show(conn, %{"id" => id}) do
     research_level = Repo.get!(ResearchLevel, id)
     # research_level = Repo.get!(assoc(conn.assigns[:user], :research_levels), id)
-    render(conn, "show.html", site_type: research_level)
+    render(conn, "show.html", research_level: research_level)
   end
 
   def edit(conn, %{"id" => id}) do

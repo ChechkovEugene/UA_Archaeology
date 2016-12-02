@@ -42,4 +42,18 @@ defmodule UaArchaeology.TestHelper do
     |> SiteType.changeset(%{name: name})
     |> Repo.insert
   end
+
+  def create_research_level(user, %{name: name}) do
+    user
+    |> build_assoc(:research_level)
+    |> ResearchLevel.changeset(%{name: name})
+    |> Repo.insert
+  end
+
+  def create_condition(user, %{name: name}) do
+    user
+    |> build_assoc(:condition)
+    |> Condition.changeset(%{name: name})
+    |> Repo.insert
+  end
 end

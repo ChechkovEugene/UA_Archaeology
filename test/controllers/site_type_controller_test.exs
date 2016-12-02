@@ -122,7 +122,7 @@ defmodule UaArchaeology.SiteTypeControllerTest do
       conn =
       login_user(conn, admin)
       |> get(user_site_type_path(conn, :edit, user, site_type))
-      assert html_response(conn, 200) =~ "Edit object type"
+      assert html_response(conn, 200) =~ "Edit site type"
   end
 
   test "updates chosen resource and redirects when data is valid when
@@ -132,8 +132,8 @@ defmodule UaArchaeology.SiteTypeControllerTest do
         email: "admin@test.com", password: "test", password_confirmation: "test"})
       conn =
       login_user(conn, admin)
-      |> put(user_object_type_path(conn, :update, user, site_type),
-        object_type: @valid_attrs)
+      |> put(user_site_type_path(conn, :update, user, site_type),
+        site_type: @valid_attrs)
       assert redirected_to(conn) == user_site_type_path(conn, :show, user,
         site_type)
       assert Repo.get_by(ObjectType, @valid_attrs)
@@ -161,7 +161,7 @@ defmodule UaArchaeology.SiteTypeControllerTest do
         conn =
         login_user(conn, admin)
         |> delete(user_site_type_path(conn, :delete, user, site_type))
-        assert redirected_to(conn) == user_object_type_path(conn, :index, user)
+        assert redirected_to(conn) == user_site_type_path(conn, :index, user)
         refute Repo.get(SiteType, site_type.id)
   end
 end

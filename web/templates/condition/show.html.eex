@@ -1,0 +1,13 @@
+<h2>Show condition</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @condition.name %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_condition_path(@conn, :edit, @user, @condition) %>
+<%= link "Back", to: user_condition_path(@conn, :index, @user) %>

@@ -7,6 +7,7 @@ defmodule UaArchaeology.Factory do
   alias UaArchaeology.ObjectType
   alias UaArchaeology.SiteType
   alias UaArchaeology.ResearchLevel
+  alias UaArchaeology.Condition
 
   def role_factory do
     %Role{
@@ -49,6 +50,13 @@ defmodule UaArchaeology.Factory do
   def research_level_factory do
     %ResearchLevel{
       name: "ResearchLevel",
+      user: build(:user)
+    }
+  end
+
+  def condition_factory do
+    %Condition{
+      name: "Condition",
       user: build(:user)
     }
   end
