@@ -8,6 +8,7 @@ defmodule UaArchaeology.Factory do
   alias UaArchaeology.SiteType
   alias UaArchaeology.ResearchLevel
   alias UaArchaeology.Condition
+  alias UaArchaeology.Author
 
   def role_factory do
     %Role{
@@ -57,6 +58,13 @@ defmodule UaArchaeology.Factory do
   def condition_factory do
     %Condition{
       name: "Condition",
+      user: build(:user)
+    }
+  end
+
+  def author_factory do
+    %Author{
+      name: "Author",
       user: build(:user)
     }
   end

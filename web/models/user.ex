@@ -12,6 +12,7 @@ defmodule UaArchaeology.User do
     has_many :site_types, UaArchaeology.SiteType
     has_many :research_levels, UaArchaeology.ResearchLevel
     has_many :conditions, UaArchaeology.Condition
+    has_many :authors, UaArchaeology.Author
     belongs_to :role, UaArchaeology.Role
 
     timestamps()

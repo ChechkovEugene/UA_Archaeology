@@ -5,6 +5,7 @@ defmodule UaArchaeology.TestHelper do
   alias UaArchaeology.Culture
   alias UaArchaeology.ObjectType
   alias UaArchaeology.SiteType
+  alias UaArchaeology.Author
 
   import Ecto, only: [build_assoc: 2]
 
@@ -54,6 +55,13 @@ defmodule UaArchaeology.TestHelper do
     user
     |> build_assoc(:condition)
     |> Condition.changeset(%{name: name})
+    |> Repo.insert
+  end
+
+  def create_author(user, %{name: name}) do
+    user
+    |> build_assoc(:author)
+    |> Author.changeset(%{name: name})
     |> Repo.insert
   end
 end

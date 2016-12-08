@@ -97,8 +97,7 @@ defmodule UaArchaeology.ResearchLevelControllerTest do
       conn = get conn, user_research_level_path(conn, :edit, other_user,
         research_level)
       assert get_flash(conn, :error) ==
-         "Ви не авторизовані для редагування цього
-           рівня археологічних досліджень!"
+         "Ви не авторизовані для редагування цього рівня археологічних досліджень!"
       assert redirected_to(conn) == page_path(conn, :index)
       assert conn.halted
   end
@@ -111,8 +110,7 @@ defmodule UaArchaeology.ResearchLevelControllerTest do
       conn = delete conn, user_research_level_path(conn, :delete, other_user,
         research_level)
       assert get_flash(conn, :error) ==
-        "Ви не авторизовані для редагування цього
-          рівня археологічних досліджень!"
+        "Ви не авторизовані для редагування цього рівня археологічних досліджень!"
       assert redirected_to(conn) == page_path(conn, :index)
       assert conn.halted
   end
@@ -137,7 +135,7 @@ defmodule UaArchaeology.ResearchLevelControllerTest do
       conn =
       login_user(conn, admin)
       |> put(user_research_level_path(conn, :update, user, research_level),
-        object_type: @valid_attrs)
+        research_level: @valid_attrs)
       assert redirected_to(conn) == user_research_level_path(conn, :show, user,
         research_level)
       assert Repo.get_by(ResearchLevel, @valid_attrs)
