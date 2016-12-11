@@ -4,5 +4,8 @@ alias UaArchaeology.Culture
 alias UaArchaeology.SiteType
 alias UaArchaeology.ObjectType
 alias UaArchaeology.ResearchLevel
+alias UaArchaeology.Author
+alias UaArchaeology.Condition
+alias UaArchaeology.Publication
 alias UaArchaeology.Repo
 import Ecto
