@@ -1,0 +1,6 @@
+<h2>Edit find</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: find_path(@conn, :update, @find) %>
+
+<%= link "Back", to: find_path(@conn, :index) %>

@@ -1,0 +1,18 @@
+<h2>Show find</h2>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @find.title %>
+  </li>
+
+  <li>
+    <strong>Topo:</strong>
+    <%= @find.topo %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: find_path(@conn, :edit, @find) %>
+<%= link "Back", to: find_path(@conn, :index) %>

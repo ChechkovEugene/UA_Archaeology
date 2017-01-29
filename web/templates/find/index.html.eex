@@ -1,0 +1,28 @@
+<h2>Listing finds</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Topo</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for find <- @finds do %>
+    <tr>
+      <td><%= find.title %></td>
+      <td><%= find.topo %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: find_path(@conn, :show, find), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: find_path(@conn, :edit, find), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: find_path(@conn, :delete, find), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New find", to: find_path(@conn, :new) %>
