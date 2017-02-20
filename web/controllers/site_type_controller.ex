@@ -30,7 +30,7 @@ defmodule UaArchaeology.SiteTypeController do
     case Repo.insert(changeset) do
       {:ok, _site_type} ->
         conn
-        |> put_flash(:info, "Site type created successfully.")
+        |> put_flash(:info, "Тип пам'яток успішно створений!")
         |> redirect(to: user_site_type_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -56,7 +56,7 @@ defmodule UaArchaeology.SiteTypeController do
     case Repo.update(changeset) do
       {:ok, site_type} ->
         conn
-        |> put_flash(:info, "Site type updated successfully.")
+        |> put_flash(:info, "Тип пам'яток було успішно змінено.")
         |> redirect(to: user_site_type_path(conn, :show, conn.assigns[:user],
           site_type))
       {:error, changeset} ->
@@ -72,7 +72,7 @@ defmodule UaArchaeology.SiteTypeController do
     Repo.delete!(site_type)
 
     conn
-    |> put_flash(:info, "Site type deleted successfully.")
+    |> put_flash(:info, "Тип пам'яток було успішно видалено.")
     |> redirect(to: user_site_type_path(conn, :index, conn.assigns[:user]))
   end
 
@@ -100,7 +100,8 @@ defmodule UaArchaeology.SiteTypeController do
       conn
     else
       conn
-      |> put_flash(:error, "Ви не авторизовані для редагування цього типу археологічної знахідки!")
+      |> put_flash(:error, "Ви не авторизовані для редагування цього
+      типу пам'яток")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

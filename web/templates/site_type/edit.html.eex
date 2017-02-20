@@ -1,6 +1,6 @@
-<h2>Edit site type</h2>
+<h2>Редагувати тип пам'ятки</h2>
 
 <%= render "form.html", changeset: @changeset,
                         action: user_site_type_path(@conn, :update, @user, @site_type) %>
 
-<%= link "Back", to: user_site_type_path(@conn, :index, @user) %>
+<%= link "Назад", to: user_site_type_path(@conn, :index, @user) %>

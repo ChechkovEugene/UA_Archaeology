@@ -1,13 +1,13 @@
-<h2>Show site type</h2>
+<h2>Тип пам'ятки</h2>
 
 <ul>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Тип пам'ятки:</strong>
     <%= @site_type.name %>
   </li>
 
 </ul>
 
-<%= link "Edit", to: user_site_type_path(@conn, :edit, @user, @site_type) %>
-<%= link "Back", to: user_site_type_path(@conn, :index, @user) %>
+<%= link "Редагувати", to: user_site_type_path(@conn, :edit, @user, @site_type) %>
+<%= link "Назад", to: user_site_type_path(@conn, :index, @user) %>

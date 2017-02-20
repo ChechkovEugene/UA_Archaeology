@@ -1,10 +1,9 @@
-<h2>Listing site types</h2>
+<h2>Типи пам'яток</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-
+      <th>Тип пам'ятки</th>
       <th></th>
     </tr>
   </thead>
@@ -14,11 +13,11 @@
       <td><%= site_type.name %></td>
 
       <td class="text-right">
-        <%= link "Show", to: user_site_type_path(@conn, :show, @user, site_type),
+        <%= link "Переглянути", to: user_site_type_path(@conn, :show, @user, site_type),
           class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_site_type_path(@conn, :edit, @user, site_type),
+        <%= link "Редагувати", to: user_site_type_path(@conn, :edit, @user, site_type),
           class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_site_type_path(@conn, :delete, @user, site_type),
+        <%= link "Видалити", to: user_site_type_path(@conn, :delete, @user, site_type),
           method: :delete, data: [confirm: "Are you sure?"],
             class: "btn btn-danger btn-xs" %>
       </td>
@@ -27,4 +26,4 @@
   </tbody>
 </table>
 
-<%= link "New site type", to: user_site_type_path(@conn, :new, @user) %>
+<%= link "Новий тип пам'яток", to: user_site_type_path(@conn, :new, @user) %>
