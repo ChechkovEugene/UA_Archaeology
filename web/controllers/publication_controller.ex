@@ -30,7 +30,7 @@ defmodule UaArchaeology.PublicationController do
     case Repo.insert(changeset) do
       {:ok, _publication} ->
         conn
-        |> put_flash(:info, "Publication created successfully.")
+        |> put_flash(:info, "Публікація успішно створена!")
         |> redirect(to: user_publication_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -56,8 +56,9 @@ defmodule UaArchaeology.PublicationController do
       case Repo.update(changeset) do
         {:ok, publication} ->
           conn
-          |> put_flash(:info, "Publication updated successfully.")
-          |> redirect(to: user_publication_path(conn, :show, conn.assigns[:user], publication))
+          |> put_flash(:info, "Публікацію було успішно змінено.")
+          |> redirect(to: user_publication_path(conn, :show,
+           conn.assigns[:user], publication))
         {:error, changeset} ->
           render(conn, "edit.html", publication: publication, changeset: changeset)
       end
@@ -71,7 +72,7 @@ defmodule UaArchaeology.PublicationController do
       Repo.delete!(publication)
 
       conn
-      |> put_flash(:info, "Публікація успішно видалена.")
+      |> put_flash(:info, "Публікацію було успішно видалено.")
       |> redirect(to: user_publication_path(conn, :index, conn.assigns[:user]))
     end
 
@@ -99,7 +100,8 @@ defmodule UaArchaeology.PublicationController do
       conn
     else
       conn
-      |> put_flash(:error, "Ви не авторизовані для редагування цієї публікації!")
+      |> put_flash(:error, "Ви не авторизовані для редагування цієї
+      публікації!")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end
