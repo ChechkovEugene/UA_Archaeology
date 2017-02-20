@@ -1,5 +1,5 @@
 # UaArchaeology
-UaArchaeology project it is web application for the archaeological cummunity
+UaArchaeology project it is web application for the archaeological community
 of Ukraine to account archaeological finds of historical museums. Project is
 written in Elixir language with using of Phoenix framework
 
