@@ -1,9 +1,9 @@
-<h2>Listing research levels</h2>
+<h2>Рівені дослідженості</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Рівень дослідженості</th>
 
       <th></th>
     </tr>
@@ -14,11 +14,11 @@
       <td><%= research_level.name %></td>
 
       <td class="text-right">
-        <%= link "Show", to: user_research_level_path(@conn, :show, @user,
+        <%= link "Переглянути", to: user_research_level_path(@conn, :show, @user,
           research_level), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_research_level_path(@conn, :edit, @user,
+        <%= link "Редагувати", to: user_research_level_path(@conn, :edit, @user,
           research_level), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_research_level_path(@conn, :delete, @user,
+        <%= link "Видалити", to: user_research_level_path(@conn, :delete, @user,
           research_level), method: :delete, data: [confirm: "Are you sure?"],
           class: "btn btn-danger btn-xs" %>
       </td>
@@ -27,4 +27,4 @@
   </tbody>
 </table>
 
-<%= link "New research level", to: user_research_level_path(@conn, :new, @user) %>
+<%= link "Новий рівень дослідженості", to: user_research_level_path(@conn, :new, @user) %>

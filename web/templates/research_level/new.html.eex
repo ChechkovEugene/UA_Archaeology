@@ -1,6 +1,6 @@
-<h2>New research level</h2>
+<h2>Новий рівень дослідженості</h2>
 
 <%= render "form.html", changeset: @changeset,
                         action: user_research_level_path(@conn, :create, @user) %>
 
-<%= link "Back", to: user_research_level_path(@conn, :index, @user) %>
+<%= link "Назад", to: user_research_level_path(@conn, :index, @user) %>

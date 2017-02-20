@@ -100,7 +100,8 @@ defmodule UaArchaeology.AuthorController do
       conn
     else
       conn
-      |> put_flash(:error, "Ви не авторизовані для редагування цього користувача!")
+      |> put_flash(:error, "Ви не авторизовані для редагування цього
+      користувача!")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

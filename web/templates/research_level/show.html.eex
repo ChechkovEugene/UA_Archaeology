@@ -1,14 +1,14 @@
-<h2>Show research level</h2>
+<h2>Рівень дослідженості</h2>
 
 <ul>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Рівень дослідженості:</strong>
     <%= @research_level.name %>
   </li>
 
 </ul>
 
-<%= link "Edit", to: user_research_level_path(@conn, :edit, @user,
+<%= link "Редагувати", to: user_research_level_path(@conn, :edit, @user,
   @research_level) %>
-<%= link "Back", to: user_research_level_path(@conn, :index, @user) %>
+<%= link "Назад", to: user_research_level_path(@conn, :index, @user) %>

@@ -30,7 +30,7 @@ defmodule UaArchaeology.ResearchLevelController do
     case Repo.insert(changeset) do
       {:ok, _research_level} ->
         conn
-        |> put_flash(:info, "Research level created successfully.")
+        |> put_flash(:info, "Рівень дослідженості успішно створений!")
         |> redirect(to: user_research_level_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -56,7 +56,7 @@ defmodule UaArchaeology.ResearchLevelController do
     case Repo.update(changeset) do
       {:ok, research_level} ->
         conn
-        |> put_flash(:info, "Research level updated successfully.")
+        |> put_flash(:info, "Рівень дослідженості було успішно змінено.")
         |> redirect(to: user_research_level_path(conn, :show, conn.assigns[:user],
           research_level))
       {:error, changeset} ->
@@ -72,7 +72,7 @@ defmodule UaArchaeology.ResearchLevelController do
     Repo.delete!(research_level)
 
     conn
-    |> put_flash(:info, "Research level deleted successfully.")
+    |> put_flash(:info, "Рівень дослідженості було успішно видалено.")
     |> redirect(to: user_research_level_path(conn, :index, conn.assigns[:user]))
   end
 
@@ -100,7 +100,8 @@ defmodule UaArchaeology.ResearchLevelController do
       conn
     else
       conn
-      |> put_flash(:error, "Ви не авторизовані для редагування цього рівня археологічних досліджень!")
+      |> put_flash(:error, "Ви не авторизовані для редагування цього
+      рівня дослідженості!")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end
