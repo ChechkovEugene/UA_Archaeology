@@ -2,6 +2,7 @@ defmodule UaArchaeology.UserController do
   use UaArchaeology.Web, :controller
 
   alias UaArchaeology.User
+  alias UaArchaeology.Role
 
   plug :scrub_params, "user" when action in [:create, :update]
   plug :authorize_admin when action in [:new, :create]
@@ -51,7 +52,7 @@ defmodule UaArchaeology.UserController do
     case Repo.insert(changeset) do
       {:ok, _user} ->
         conn
-        |> put_flash(:info, "User created successfully.")
+        |> put_flash(:info, "Користувач успішно створений!")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, roles: roles)
@@ -78,7 +79,7 @@ defmodule UaArchaeology.UserController do
     case Repo.update(changeset) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
+        |> put_flash(:info, "Користувача було успішно змінено.")
         |> redirect(to: user_path(conn, :show, user))
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset, roles: roles)
@@ -93,7 +94,7 @@ defmodule UaArchaeology.UserController do
     Repo.delete!(user)
 
     conn
-    |> put_flash(:info, "User deleted successfully.")
+    |> put_flash(:info, "Користувача було успішно видалено.")
     |> redirect(to: user_path(conn, :index))
   end
 end

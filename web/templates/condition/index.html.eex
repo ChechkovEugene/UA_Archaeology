@@ -1,9 +1,9 @@
-<h2>Listing conditions</h2>
+<h2>Стани знахідок</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Стан</th>
 
       <th></th>
     </tr>
@@ -14,13 +14,13 @@
       <td><%= condition.name %></td>
 
       <td class="text-right">
-        <%= link "Show", to: user_condition_path(@conn, :show, @user, condition), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_condition_path(@conn, :edit, @user, condition), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_condition_path(@conn, :delete, @user, condition), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Переглянути", to: user_condition_path(@conn, :show, @user, condition), class: "btn btn-default btn-xs" %>
+        <%= link "Редагувати", to: user_condition_path(@conn, :edit, @user, condition), class: "btn btn-default btn-xs" %>
+        <%= link "Видалити", to: user_condition_path(@conn, :delete, @user, condition), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link "New condition", to: user_condition_path(@conn, :new, @user) %>
+<%= link "Новий стан знахідок", to: user_condition_path(@conn, :new, @user) %>

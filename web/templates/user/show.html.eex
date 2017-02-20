@@ -1,9 +1,9 @@
-<h2>Show user</h2>
+<h2>Користувач</h2>
 
 <ul>
 
   <li>
-    <strong>Username:</strong>
+    <strong>Користувач:</strong>
     <%= @user.username %>
   </li>
 
@@ -13,11 +13,11 @@
   </li>
 
   <li>
-    <strong>Password digest:</strong>
+    <strong>Підпис пароля:</strong>
     <%= @user.password_digest %>
   </li>
 
 </ul>
 
-<%= link "Edit", to: user_path(@conn, :edit, @user) %>
-<%= link "Back", to: user_path(@conn, :index) %>
+<%= link "Редагувати", to: user_path(@conn, :edit, @user) %>
+<%= link "Назад", to: user_path(@conn, :index) %>

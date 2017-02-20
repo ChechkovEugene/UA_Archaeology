@@ -1,13 +1,13 @@
-<h2>Show condition</h2>
+<h2>Стан знахідок/h2>
 
 <ul>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Стан:</strong>
     <%= @condition.name %>
   </li>
 
 </ul>
 
-<%= link "Edit", to: user_condition_path(@conn, :edit, @user, @condition) %>
-<%= link "Back", to: user_condition_path(@conn, :index, @user) %>
+<%= link "Редагувати", to: user_condition_path(@conn, :edit, @user, @condition) %>
+<%= link "Назад", to: user_condition_path(@conn, :index, @user) %>

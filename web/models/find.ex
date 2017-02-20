@@ -4,6 +4,7 @@ defmodule UaArchaeology.Find do
   schema "finds" do
     field :title, :string
     field :topo, :string
+    belongs_to :user, UaArchaeology.User
 
     timestamps()
   end

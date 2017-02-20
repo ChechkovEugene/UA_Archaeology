@@ -30,7 +30,7 @@ defmodule UaArchaeology.AuthorController do
     case Repo.insert(changeset) do
       {:ok, _author} ->
         conn
-        |> put_flash(:info, "Author created successfully.")
+        |> put_flash(:info, "Автор успішно створений!")
         |> redirect(to: user_author_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -56,7 +56,7 @@ defmodule UaArchaeology.AuthorController do
       case Repo.update(changeset) do
         {:ok, author} ->
           conn
-          |> put_flash(:info, "Author updated successfully.")
+          |> put_flash(:info, "Автора було успішно змінено.")
           |> redirect(to: user_author_path(conn, :show, conn.assigns[:user],
             author))
         {:error, changeset} ->
@@ -72,7 +72,7 @@ defmodule UaArchaeology.AuthorController do
       Repo.delete!(author)
 
       conn
-      |> put_flash(:info, "Автора успішно видалено.")
+      |> put_flash(:info, "Автора було успішно видалено.")
       |> redirect(to: user_author_path(conn, :index, conn.assigns[:user]))
     end
 
@@ -100,7 +100,7 @@ defmodule UaArchaeology.AuthorController do
       conn
     else
       conn
-      |> put_flash(:error, "Ви не авторизовані для редагування цього автора!")
+      |> put_flash(:error, "Ви не авторизовані для редагування цього користувача!")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end
