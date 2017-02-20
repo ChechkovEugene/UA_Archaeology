@@ -30,7 +30,7 @@ defmodule UaArchaeology.ObjectTypeController do
     case Repo.insert(changeset) do
       {:ok, _object_type} ->
         conn
-        |> put_flash(:info, "Object type created successfully.")
+        |> put_flash(:info, "Тип об'єктів успішно створений!")
         |> redirect(to: user_object_type_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -56,7 +56,7 @@ defmodule UaArchaeology.ObjectTypeController do
     case Repo.update(changeset) do
       {:ok, object_type} ->
         conn
-        |> put_flash(:info, "Object type updated successfully.")
+        |> put_flash(:info, "Тип об'єктів було успішно змінено.")
         |> redirect(to: user_object_type_path(conn, :show, conn.assigns[:user],
           object_type))
       {:error, changeset} ->
@@ -72,7 +72,7 @@ defmodule UaArchaeology.ObjectTypeController do
     Repo.delete!(object_type)
 
     conn
-    |> put_flash(:info, "Object type deleted successfully.")
+    |> put_flash(:info, "Тип об'єктів було успішно видалено.")
     |> redirect(to: user_object_type_path(conn, :index, conn.assigns[:user]))
   end
 
@@ -100,7 +100,8 @@ defmodule UaArchaeology.ObjectTypeController do
       conn
     else
       conn
-      |> put_flash(:error, "Ви не авторизовані для редагування цього типу об'єкту!")
+      |> put_flash(:error, "Ви не авторизовані для редагування цього типу
+      об'єктів!")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

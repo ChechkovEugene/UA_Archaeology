@@ -1,9 +1,9 @@
-<h2>Listing object types</h2>
+<h2>Типи об'єктів</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Тип об'єктів</th>
 
       <th></th>
     </tr>
@@ -14,11 +14,11 @@
       <td><%= object_type.name %></td>
 
       <td class="text-right">
-        <%= link "Show", to: user_object_type_path(@conn, :show, @user, object_type),
+        <%= link "Переглянути", to: user_object_type_path(@conn, :show, @user, object_type),
           class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_object_type_path(@conn, :edit, @user, object_type),
+        <%= link "Редагувати", to: user_object_type_path(@conn, :edit, @user, object_type),
           class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_object_type_path(@conn, :delete, @user,
+        <%= link "Видалити", to: user_object_type_path(@conn, :delete, @user,
           object_type), method: :delete, data: [confirm: "Are you sure?"],
             class: "btn btn-danger btn-xs" %>
       </td>
@@ -27,4 +27,4 @@
   </tbody>
 </table>
 
-<%= link "New object type", to: user_object_type_path(@conn, :new, @user) %>
+<%= link "Новий тип об'єктів", to: user_object_type_path(@conn, :new, @user) %>
