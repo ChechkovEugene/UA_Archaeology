@@ -1,13 +1,13 @@
-<h2>Show culture</h2>
+<h2>Археологічна культура</h2>
 
 <ul>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Археологічна культура:</strong>
     <%= @culture.name %>
   </li>
 
 </ul>
 
-<%= link "Edit", to: user_culture_path(@conn, :edit, @user, @culture) %>
-<%= link "Back", to: user_culture_path(@conn, :index, @user) %>
+<%= link "Редагувати", to: user_culture_path(@conn, :edit, @user, @culture) %>
+<%= link "Назад", to: user_culture_path(@conn, :index, @user) %>

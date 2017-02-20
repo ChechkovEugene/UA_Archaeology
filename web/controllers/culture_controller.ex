@@ -30,7 +30,7 @@ defmodule UaArchaeology.CultureController do
     case Repo.insert(changeset) do
       {:ok, _culture} ->
         conn
-        |> put_flash(:info, "Culture created successfully.")
+        |> put_flash(:info, "Археологічна культура успішно створена!")
         |> redirect(to: user_culture_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -56,7 +56,7 @@ defmodule UaArchaeology.CultureController do
       case Repo.update(changeset) do
         {:ok, culture} ->
           conn
-          |> put_flash(:info, "Culture updated successfully.")
+          |> put_flash(:info, "Археологічну культуру було успішно змінено.")
           |> redirect(to: user_culture_path(conn, :show, conn.assigns[:user], culture))
         {:error, changeset} ->
           render(conn, "edit.html", culture: culture, changeset: changeset)
@@ -71,7 +71,7 @@ defmodule UaArchaeology.CultureController do
       Repo.delete!(culture)
 
       conn
-      |> put_flash(:info, "Культура успішно видалена.")
+      |> put_flash(:info, "Археологічну культуру було успішно видалено.")
       |> redirect(to: user_culture_path(conn, :index, conn.assigns[:user]))
     end
 
@@ -99,7 +99,8 @@ defmodule UaArchaeology.CultureController do
       conn
     else
       conn
-      |> put_flash(:error, "Ви не авторизовані для редагування цієї культури!")
+      |> put_flash(:error, "Ви не авторизовані для редагування цієї
+      археологічної культури!")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

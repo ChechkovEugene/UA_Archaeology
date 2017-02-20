@@ -72,7 +72,7 @@ defmodule UaArchaeology.ConditionController do
       Repo.delete!(condition)
 
       conn
-      |> put_flash(:info, "Стан знахідок успішно видалено.")
+      |> put_flash(:info, "Стан знахідок було успішно видалено.")
       |> redirect(to: user_condition_path(conn, :index, conn.assigns[:user]))
     end
 
