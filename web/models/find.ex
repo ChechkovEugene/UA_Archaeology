@@ -6,7 +6,8 @@ defmodule UaArchaeology.Find do
     field :topo, :string
     belongs_to :user, UaArchaeology.User
     belongs_to :condition, UaArchaeology.Condition
-
+    belongs_to :research_level, UaArchaeology.ResearchLevel
+    
     timestamps()
   end
 

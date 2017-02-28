@@ -26,6 +26,13 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :research_level_id, "Рівень дослідженості", class: "control-label" %>
+    <%= select f, :research_level_id, research_levels_for_select(@research_levels),
+     class: "form-control" %>
+    <%= error_tag f, :research_level_id %>
+  </div>
+
+  <div class="form-group">
     <%= submit "Підтвердити", class: "btn btn-primary" %>
   </div>
 <% end %>

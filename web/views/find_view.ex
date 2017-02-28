@@ -6,4 +6,10 @@ defmodule UaArchaeology.FindView do
     |> Enum.map(&["#{&1.name}": &1.id])
     |> List.flatten
   end
+
+  def research_levels_for_select(research_levels) do
+    research_levels
+    |> Enum.map(&["#{&1.name}": &1.id])
+    |> List.flatten
+  end
 end

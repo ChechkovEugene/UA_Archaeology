@@ -1,6 +1,8 @@
 <h2>Редагувати пам'ятку</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: user_find_path(@conn, :update, @user, @find) %>
+                        action: user_find_path(@conn, :update, @user, @find),
+                        conditions: @conditions,
+                        research_levels: @research_levels %>
 
 <%= link "Назад", to: user_find_path(@conn, :index, @user) %>
