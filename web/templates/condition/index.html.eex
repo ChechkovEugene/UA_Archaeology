@@ -16,7 +16,7 @@
       <td class="text-right">
         <%= link "Переглянути", to: user_condition_path(@conn, :show, @user, condition), class: "btn btn-default btn-xs" %>
         <%= link "Редагувати", to: user_condition_path(@conn, :edit, @user, condition), class: "btn btn-default btn-xs" %>
-        <%= link "Видалити", to: user_condition_path(@conn, :delete, @user, condition), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Видалити", to: user_condition_path(@conn, :delete, @user, condition), method: :delete, data: [confirm: "Ви впевнені?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>

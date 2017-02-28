@@ -1,6 +1,6 @@
-<h2>Edit find</h2>
+<h2>Редагувати пам'ятку</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: find_path(@conn, :update, @find) %>
+                        action: user_find_path(@conn, :update, @user, @find) %>
 
-<%= link "Back", to: find_path(@conn, :index) %>
+<%= link "Назад", to: user_find_path(@conn, :index, @user) %>

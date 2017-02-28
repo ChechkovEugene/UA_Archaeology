@@ -19,7 +19,7 @@
         <%= link "Редагувати", to: user_object_type_path(@conn, :edit, @user, object_type),
           class: "btn btn-default btn-xs" %>
         <%= link "Видалити", to: user_object_type_path(@conn, :delete, @user,
-          object_type), method: :delete, data: [confirm: "Are you sure?"],
+          object_type), method: :delete, data: [confirm: "Ви впевнені?"],
             class: "btn btn-danger btn-xs" %>
       </td>
     </tr>

@@ -19,7 +19,7 @@
         <%= link "Редагувати", to: user_research_level_path(@conn, :edit, @user,
           research_level), class: "btn btn-default btn-xs" %>
         <%= link "Видалити", to: user_research_level_path(@conn, :delete, @user,
-          research_level), method: :delete, data: [confirm: "Are you sure?"],
+          research_level), method: :delete, data: [confirm: "Ви впевнені?"],
           class: "btn btn-danger btn-xs" %>
       </td>
     </tr>

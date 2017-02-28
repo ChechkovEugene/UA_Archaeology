@@ -16,7 +16,7 @@
       <td class="text-right">
         <%= link "Show", to: user_publication_path(@conn, :show, @user, publication), class: "btn btn-default btn-xs" %>
         <%= link "Edit", to: user_publication_path(@conn, :edit, @user, publication), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_publication_path(@conn, :delete, @user, publication), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Delete", to: user_publication_path(@conn, :delete, @user, publication), method: :delete, data: [confirm: "Ви впевнені?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>

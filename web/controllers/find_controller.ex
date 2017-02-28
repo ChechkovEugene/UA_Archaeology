@@ -1,15 +1,17 @@
-defmodule UaArchaeology.PostController do
+defmodule UaArchaeology.FindController do
   use UaArchaeology.Web, :controller
 
   alias UaArchaeology.Find
 
   plug :scrub_params, "find" when action in [:create, :update]
   plug :assign_user
+  # plug :assign_user_nullable when action in [:index]
   plug :authorize_user when action in [:new, :create, :update, :edit, :delete]
-  plug :set_authorization_flag when action in [:show]
+  # plug :set_authorization_flag when action in [:show]
 
   def index(conn, _params) do
-    finds = Repo.all(assoc(conn.assigns[:user], :finds))
+    # finds = Repo.all(assoc(conn.assigns[:user], :finds))
+    finds = Repo.all(Find)
     render(conn, "index.html", finds: finds)
   end
 
@@ -28,7 +30,7 @@ defmodule UaArchaeology.PostController do
     case Repo.insert(changeset) do
       {:ok, _find} ->
         conn
-        |> put_flash(:info, "Археологічна знахідка успішно створена.")
+        |> put_flash(:info, "Археологічна пам'ятка успішно створена!")
         |> redirect(to: user_find_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -54,7 +56,7 @@ defmodule UaArchaeology.PostController do
     case Repo.update(changeset) do
       {:ok, find} ->
         conn
-        |> put_flash(:info, "Археологічна знахідка успішно оновлена.")
+        |> put_flash(:info, "Археологічна пам'ятка успішно оновлена.")
         |> redirect(to: user_find_path(conn, :show, conn.assigns[:user], find))
       {:error, changeset} ->
         render(conn, "edit.html", find: find, changeset: changeset)
@@ -69,12 +71,14 @@ defmodule UaArchaeology.PostController do
     Repo.delete!(find)
 
     conn
-    |> put_flash(:info, "Археологічна знахідка успішно видалена.")
+    |> put_flash(:info, "Археологічна пам'ятка успішно видалена.")
     |> redirect(to: user_find_path(conn, :index, conn.assigns[:user]))
   end
 
   defp assign_user(conn, _opts) do
     case conn.params do
+      %{"user_id" => "-1"} ->
+        assign(conn, :user, nil)
       %{"user_id" => user_id} ->
         case Repo.get(UaArchaeology.User, user_id) do
           nil  -> invalid_user(conn)
@@ -97,7 +101,7 @@ defmodule UaArchaeology.PostController do
       conn
     else
       conn
-      |> put_flash(:error, "Ви не авторизовані для редагування цієї знахідки!")
+      |> put_flash(:error, "Ви не авторизовані для редагування цієї пам'ятки!")
       |> redirect(to: page_path(conn, :index))
       |> halt
     end

@@ -19,12 +19,12 @@ defmodule UaArchaeology.Router do
 
     get "/", PageController, :index
 
-    resources "/finds", FindController, only: [:index]
+    resources "/finds", FindController, only: [:index, :show]
 
     resources "/users", UserController do
       resources "/finds", FindController
     end
-    
+
     resources "/users", UserController do
       resources "/cultures", CultureController
     end

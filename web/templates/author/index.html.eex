@@ -16,7 +16,7 @@
       <td class="text-right">
         <%= link "Переглянути", to: user_author_path(@conn, :show, @user, author), class: "btn btn-default btn-xs" %>
         <%= link "Редагувати", to: user_author_path(@conn, :edit, @user, author), class: "btn btn-default btn-xs" %>
-        <%= link "Видалити", to: user_author_path(@conn, :delete, @user, author), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Видалити", to: user_author_path(@conn, :delete, @user, author), method: :delete, data: [confirm: "Ви впевнені?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>

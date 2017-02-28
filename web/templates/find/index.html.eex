@@ -1,28 +1,58 @@
-<h2>Listing finds</h2>
+<h2>Пам'ятки</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Topo</th>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#finds_map">Мапа</a></li>
+  <li><a data-toggle="tab" href="#finds_list">Список</a></li>
+</ul>
+<div class="tab-content">
+  <div id="finds_map" class="tab-pane fade in active">
+    <div id="findsmap"></div>
+  </div>
+  <div id="finds_list" class="tab-pane fade">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Назва</th>
+        <th>Топонім</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for find <- @finds do %>
-    <tr>
-      <td><%= find.title %></td>
-      <td><%= find.topo %></td>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for find <- @finds do %>
+      <tr>
+        <td><%= find.title %></td>
+        <td><%= find.topo %></td>
 
-      <td class="text-right">
-        <%= link "Show", to: find_path(@conn, :show, find), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: find_path(@conn, :edit, find), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: find_path(@conn, :delete, find), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
+        <td class="text-right">
+          <%= link "Переглянути", to: find_path(@conn, :show, find), class: "btn btn-default btn-xs" %>
+          <%= if current_user = @conn.assigns[:current_user] do %>
+            <%= link "Редагувати", to: user_find_path(@conn, :edit, @user, find),
+              class: "btn btn-default btn-xs" %>
+            <%= link "Видалити", to: user_find_path(@conn, :delete, @user, find),
+              method: :delete, data: [confirm: "Ви впевнені?"], class: "btn btn-danger btn-xs" %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<%= if current_user = @conn.assigns[:current_user] do %>
+  <%= link "Нова пам'ятка", to: user_find_path(@conn, :new, @user) %>
 <% end %>
-  </tbody>
-</table>
 
-<%= link "New find", to: find_path(@conn, :new) %>
+<script type="text/javascript">
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('findsmap'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+    });
+  }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyEdheGfafrbx5bk3xvSZW1uhwG8KKrtI&callback=initMap"
+async defer></script>
