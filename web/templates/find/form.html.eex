@@ -20,6 +20,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :condition_id, "Стан", class: "control-label" %>
+    <%= select f, :condition_id, conditions_for_select(@conditions), class: "form-control" %>
+    <%= error_tag f, :condition_id %>
+  </div>
+
+  <div class="form-group">
     <%= submit "Підтвердити", class: "btn btn-primary" %>
   </div>
 <% end %>

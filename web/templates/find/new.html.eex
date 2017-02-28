@@ -1,6 +1,7 @@
 <h2>Нова пам'ятка</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: user_find_path(@conn, :create, @user) %>
+                        action: user_find_path(@conn, :create, @user),
+                        conditions: @conditions %>
 
 <%= link "Назад", to: user_find_path(@conn, :index, @user) %>

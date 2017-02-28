@@ -2,6 +2,7 @@ defmodule UaArchaeology.FindController do
   use UaArchaeology.Web, :controller
 
   alias UaArchaeology.Find
+  alias UaArchaeology.Condition
 
   plug :scrub_params, "find" when action in [:create, :update]
   plug :assign_user
@@ -16,13 +17,15 @@ defmodule UaArchaeology.FindController do
   end
 
   def new(conn, _params) do
+    conditions = Repo.all(Condition)
     changeset = conn.assigns[:user]
       |> build_assoc(:finds)
       |> Find.changeset()
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, conditions: conditions)
   end
 
   def create(conn, %{"find" => find_params}) do
+    conditions = Repo.all(Condition)
     changeset = conn.assigns[:user]
       |> build_assoc(:finds)
       |> Find.changeset(find_params)
@@ -33,7 +36,7 @@ defmodule UaArchaeology.FindController do
         |> put_flash(:info, "Археологічна пам'ятка успішно створена!")
         |> redirect(to: user_find_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, conditions: conditions)
     end
   end
 

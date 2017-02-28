@@ -5,6 +5,7 @@ defmodule UaArchaeology.Find do
     field :title, :string
     field :topo, :string
     belongs_to :user, UaArchaeology.User
+    belongs_to :condition, UaArchaeology.Condition
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule UaArchaeology.Find do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :topo])
-    |> validate_required([:title, :topo])
+    |> cast(params, [:title, :topo, :condition_id])
+    |> validate_required([:title, :topo, :condition_id])
   end
 end

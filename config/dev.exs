@@ -40,4 +40,5 @@ config :ua_archaeology, UaArchaeology.Repo,
   password: "postgres",
   database: "ua_archaeology_dev",
   hostname: "localhost",
-  pool_size: 10
+  pool_size: 10,
+  extensions: [{Geo.PostGIS.Extension, library: Geo}]

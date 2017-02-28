@@ -4,7 +4,8 @@ defmodule UaArchaeology.Condition do
   schema "conditions" do
     field :name, :string
     belongs_to :user, UaArchaeology.User
-
+    has_many :finds, UaArchaeology.Find
+    
     timestamps()
   end
 
