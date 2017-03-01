@@ -14,6 +14,8 @@ defmodule UaArchaeology.FindController do
   alias UaArchaeology.FindCulture
   alias UaArchaeology.Author
   alias UaArchaeology.FindAuthor
+  alias UaArchaeology.Publication
+  alias UaArchaeology.FindPublication
 
   plug :scrub_params, "find" when action in [:create, :update]
   plug :assign_user
@@ -26,6 +28,7 @@ defmodule UaArchaeology.FindController do
   plug :load_site_types when action in [:new, :create, :edit, :update]
   plug :load_cultures when action in [:new, :create, :edit, :update]
   plug :load_authors when action in [:new, :create, :edit, :update]
+  plug :load_publications when action in [:new, :create, :edit, :update]
 
   def index(conn, _params) do
     # finds = Repo.all(assoc(conn.assigns[:user], :finds))
@@ -39,7 +42,8 @@ defmodule UaArchaeology.FindController do
       |> Find.changeset()
     render(conn, "new.html", changeset: changeset, find_conditions_ids: [],
     find_research_levels_ids: [], find_object_types_ids: [],
-    find_site_types_ids: [], find_cultures_ids: [], find_authors_ids: [])
+    find_site_types_ids: [], find_cultures_ids: [], find_authors_ids: [],
+    find_publications_ids: [])
   end
 
   def create(conn, %{"find" => find_params}) do
@@ -50,6 +54,7 @@ defmodule UaArchaeology.FindController do
     checked_site_types_ids = checked_ids(conn, "checked_site_types")
     checked_cultures_ids = checked_ids(conn, "checked_cultures")
     checked_authors_ids = checked_ids(conn, "checked_authors")
+    checked_publications_ids = checked_ids(conn, "checked_publications")
 
     changeset = conn.assigns[:user]
       |> build_assoc(:finds)
@@ -58,12 +63,20 @@ defmodule UaArchaeology.FindController do
     case Repo.insert(changeset) do
       {:ok, find} ->
         find_id = find.id
-        do_update_intermediate_table(FindCondition, find_id, [], checked_conditions_ids)
-        do_update_intermediate_table(FindResearchLevel, find_id, [], checked_research_levels_ids)
-        do_update_intermediate_table(FindObjectType, find_id, [], checked_object_types_ids)
-        do_update_intermediate_table(FindSiteType, find_id, [], checked_site_types_ids)
-        do_update_intermediate_table(FindCultures, find_id, [], checked_cultures_ids)
-        do_update_intermediate_table(FindAuthors, find_id, [], checked_authors_ids)
+        do_update_intermediate_table(FindCondition, find_id, [],
+          checked_conditions_ids)
+        do_update_intermediate_table(FindResearchLevel, find_id, [],
+          checked_research_levels_ids)
+        do_update_intermediate_table(FindObjectType, find_id, [],
+          checked_object_types_ids)
+        do_update_intermediate_table(FindSiteType, find_id, [],
+          checked_site_types_ids)
+        do_update_intermediate_table(FindCultures, find_id, [],
+          checked_cultures_ids)
+        do_update_intermediate_table(FindAuthors, find_id, [],
+          checked_authors_ids)
+        do_update_intermediate_table(FindPublications, find_id, [],
+          checked_publications_ids)
         conn
         |> put_flash(:info, "Археологічна пам'ятка успішно створена!")
         |> redirect(to: user_find_path(conn, :index, conn.assigns[:user]))
@@ -74,14 +87,15 @@ defmodule UaArchaeology.FindController do
         find_object_types_ids: checked_object_types_ids,
         find_site_types_ids: checked_site_types_ids,
         find_cultures_ids: checked_cultures_ids,
-        find_authors_ids: checked_authors_ids)
+        find_authors_ids: checked_authors_ids,
+        find_publications_ids: checked_publications_ids)
     end
   end
 
   def show(conn, %{"id" => id}) do
     find = Repo.get!(Find, id)
     find = Repo.preload find, [:conditions, :research_levels, :object_types,
-      :site_types, :cultures, :authors]
+      :site_types, :cultures, :authors, :publications]
     # find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
     render(conn, "show.html", find: find)
   end
@@ -89,7 +103,7 @@ defmodule UaArchaeology.FindController do
   def edit(conn, %{"id" => id}) do
     find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
     find = Repo.preload find, [:conditions, :research_levels, :object_types,
-      :site_types, :cultures, :authors]
+      :site_types, :cultures, :authors, :publications]
 
     finds_conditions_ids = find.conditions |> Enum.map(&(&1.id))
     find_research_levels_ids = find.research_levels |> Enum.map(&(&1.id))
@@ -97,6 +111,7 @@ defmodule UaArchaeology.FindController do
     find_site_types_ids = find.site_types |> Enum.map(&(&1.id))
     find_cultures_ids = find.cultures |> Enum.map(&(&1.id))
     find_authors_ids = find.authors |> Enum.map(&(&1.id))
+    find_publications_ids = find.publications |> Enum.map(&(&1.id))
 
     changeset = Find.changeset(find)
     render(conn, "edit.html", find: find, changeset: changeset,
@@ -105,13 +120,14 @@ defmodule UaArchaeology.FindController do
                               find_object_types_ids: find_object_types_ids,
                               find_site_types_ids: find_site_types_ids,
                               find_cultures_ids: find_cultures_ids,
-                              find_authors_ids: find_authors_ids)
+                              find_authors_ids: find_authors_ids,
+                              find_publications_ids: find_publications_ids)
   end
 
   def update(conn, %{"id" => id, "find" => find_params}) do
     find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
     find = Repo.preload find, [:conditions, :research_levels, :object_types,
-      :site_types, :cultures, :authors]
+      :site_types, :cultures, :authors, :publications]
 
     finds_conditions_ids = find.conditions |> Enum.map(&(&1.id))
     find_research_levels_ids = find.research_levels |> Enum.map(&(&1.id))
@@ -119,6 +135,7 @@ defmodule UaArchaeology.FindController do
     find_site_types_ids = find.site_types |> Enum.map(&(&1.id))
     find_cultures_ids = find.cultures |> Enum.map(&(&1.id))
     find_authors_ids = find.authors |> Enum.map(&(&1.id))
+    find_publications_ids = find.publications |> Enum.map(&(&1.id))
 
     changeset = Find.changeset(find, find_params)
 
@@ -130,15 +147,24 @@ defmodule UaArchaeology.FindController do
     checked_site_types_ids = checked_ids(conn, "checked_site_types")
     checked_cultures_ids = checked_ids(conn, "checked_cultures")
     checked_authors_ids = checked_ids(conn, "checked_authors")
+    checked_publications_ids = checked_ids(conn, "checked_publications")
 
     case Repo.update(changeset) do
       {:ok, find} ->
-        do_update_intermediate_table(FindCondition, find_id, [], checked_conditions_ids)
-        do_update_intermediate_table(FindResearchLevel, find_id, [], checked_research_levels_ids)
-        do_update_intermediate_table(FindObjectType, find_id, [], checked_object_types_ids)
-        do_update_intermediate_table(FindSiteType, find_id, [], checked_site_types_ids)
-        do_update_intermediate_table(FindCulture, find_id, [], checked_cultures_ids)
-        do_update_intermediate_table(FindAuthors, find_id, [], checked_authors_ids)
+        do_update_intermediate_table(FindCondition, find_id, [],
+          checked_conditions_ids)
+        do_update_intermediate_table(FindResearchLevel, find_id, [],
+          checked_research_levels_ids)
+        do_update_intermediate_table(FindObjectType, find_id, [],
+          checked_object_types_ids)
+        do_update_intermediate_table(FindSiteType, find_id, [],
+          checked_site_types_ids)
+        do_update_intermediate_table(FindCulture, find_id, [],
+          checked_cultures_ids)
+        do_update_intermediate_table(FindAuthors, find_id, [],
+          checked_authors_ids)
+        do_update_intermediate_table(FindPublications, find_id, [],
+            checked_publications_ids)
         conn
         |> put_flash(:info, "Археологічна пам'ятка успішно оновлена.")
         |> redirect(to: user_find_path(conn, :show, conn.assigns[:user], find))
@@ -288,5 +314,14 @@ defmodule UaArchaeology.FindController do
       |> Author.names_and_ids
     authors = Repo.all query
     assign(conn, :authors, authors)
+  end
+
+  defp load_publications(conn, _) do
+    query =
+      Publication
+      |> Publication.alphabetical
+      |> Publication.names_and_ids
+    publications = Repo.all query
+    assign(conn, :publications, publications)
   end
 end

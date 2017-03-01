@@ -56,6 +56,13 @@
     <% end %>
   </li>
 
+  <li>
+    <strong>Публікації:</strong>
+    <%= for publication <- @find.publications do %>
+    <%= publication.name <> "," %>
+    <% end %>
+  </li>
+
 </ul>
 
 <%= if current_user = @conn.assigns[:current_user] do %>
