@@ -3,6 +3,8 @@
 <%= render "form.html", changeset: @changeset,
                         action: user_find_path(@conn, :create, @user),
                         conditions: @conditions,
-                        research_levels: @research_levels %>
+                        research_levels: @research_levels,
+                        find_conditions_ids: @find_conditions_ids,
+                        find_research_levels_ids: @find_research_levels_ids %>
 
 <%= link "Назад", to: user_find_path(@conn, :index, @user) %>

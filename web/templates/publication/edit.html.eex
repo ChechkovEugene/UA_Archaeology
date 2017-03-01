@@ -3,4 +3,4 @@
 <%= render "form.html", changeset: @changeset,
                         action: user_publication_path(@conn, :update, @user, @publication) %>
 
-<%= link "Back", to: user_publication_path(@conn, :index, @user) %>
+<%= link "Назад", to: user_publication_path(@conn, :index, @user) %>

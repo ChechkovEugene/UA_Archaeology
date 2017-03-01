@@ -1,13 +1,13 @@
-<h2>Show publication</h2>
+<h2>Публікація</h2>
 
 <ul>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Публікація:</strong>
     <%= @publication.name %>
   </li>
 
 </ul>
 
-<%= link "Edit", to: user_publication_path(@conn, :edit, @user, @publication) %>
-<%= link "Back", to: user_publication_path(@conn, :index, @user) %>
+<%= link "Редагувати", to: user_publication_path(@conn, :edit, @user, @publication) %>
+<%= link "Назад", to: user_publication_path(@conn, :index, @user) %>

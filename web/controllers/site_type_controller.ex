@@ -101,7 +101,7 @@ defmodule UaArchaeology.SiteTypeController do
     else
       conn
       |> put_flash(:error, "Ви не авторизовані для редагування цього
-      типу пам'яток")
+      типу пам'яток!")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

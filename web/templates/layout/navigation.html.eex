@@ -25,13 +25,13 @@
                 <li class="dropdown">
                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">Додатки<b class="caret"></b></a>
                      <ul role="menu" class="dropdown-menu">
-                         <li><a<%= link "Автори", to: user_author_path(@conn, :index, current_user.id) %></li>
+                         <li><%= link "Автори", to: user_author_path(@conn, :index, current_user.id) %></li>
                          <li><%= link "Стани", to: user_condition_path(@conn, :index, current_user.id) %></li>
                          <li><%= link "Культури", to: user_culture_path(@conn, :index, current_user.id) %></li>
                          <!-- <li class="divider"></li> -->
                          <li><%= link "Типи объектів", to: user_object_type_path(@conn, :index, current_user.id) %></li>
                          <li><%= link "Публікації", to: user_publication_path(@conn, :index, current_user.id) %></li>
-                         <li><%= link "Рівні дослідженості", to: user_publication_path(@conn, :index, current_user.id) %></li>
+                         <li><%= link "Рівні дослідженості", to: user_research_level_path(@conn, :index, current_user.id) %></li>
                          <li><%= link "Типи пам'яток", to: user_site_type_path(@conn, :index, current_user.id) %></li>
                      </ul>
                  </li>

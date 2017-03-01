@@ -25,12 +25,14 @@
         <td><%= find.topo %></td>
 
         <td class="text-right">
-          <%= link "Переглянути", to: find_path(@conn, :show, find), class: "btn btn-default btn-xs" %>
           <%= if current_user = @conn.assigns[:current_user] do %>
+            <%= link "Переглянути", to: user_find_path(@conn, :show, @user, find), class: "btn btn-default btn-xs" %>
             <%= link "Редагувати", to: user_find_path(@conn, :edit, @user, find),
               class: "btn btn-default btn-xs" %>
             <%= link "Видалити", to: user_find_path(@conn, :delete, @user, find),
               method: :delete, data: [confirm: "Ви впевнені?"], class: "btn btn-danger btn-xs" %>
+          <% else %>
+            <%= link "Переглянути", to: user_find_path(@conn, :show, -1, find), class: "btn btn-default btn-xs" %>
           <% end %>
         </td>
       </tr>

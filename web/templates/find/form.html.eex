@@ -19,18 +19,62 @@
     <%= error_tag f, :topo %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :condition_id, "Стан", class: "control-label" %>
-    <%= select f, :condition_id, conditions_for_select(@conditions), class: "form-control" %>
-    <%= error_tag f, :condition_id %>
+
+  <div class="form-group multiselect">
+    <div class="selectBox" onclick="showCheckboxes('conditions')">
+      <select>
+        <option>Стан</option>
+      </select>
+      <div class="overSelect"></div>
+    </div>
+
+    <div id="conditions" class="checkboxes">
+      <%= for {name, id} <- @conditions do %>
+        <% checked = id in @find_conditions_ids %>
+        <div><%= checkbox :checked_conditions, "#{id}", value: name, checked: checked %> <%= name %></div>
+      <%= end %>
+    </div>
+  </div>
+
+  <div class="form-group multiselect">
+    <div class="selectBox" onclick="showCheckboxes('levels')">
+      <select>
+        <option>Рівень дослідженості</option>
+      </select>
+      <div class="overSelect"></div>
+    </div>
+
+    <div id="levels" class="checkboxes">
+      <%= for {name, id} <- @research_levels do %>
+        <% checked = id in @find_research_levels_ids %>
+        <div><%= checkbox :checked_research_levels, "#{id}", value: name, checked: checked %> <%= name %></div>
+      <%= end %>
+    </div>
+  </div>
+
+  <!-- <div class="form-group">
+    <%= label f, :tag_ids, "Стан" %>
+    <br>
+    <%= multiple_select f, :tag_ids, @conditions, value: @find_conditions_ids %>
+  </div> -->
+
+  <!-- <div class="form-group">
+    <%= label f, :checked_conditions, "Стан", class: "control-label" %>
+    <br>
+    <%= for {name, id} <- @conditions do %>
+      <% checked = id in @find_conditions_ids %>
+      <div><%= checkbox :checked_conditions, "#{id}", value: name, checked: checked %> <%= name %></div>
+    <%= end %>
   </div>
 
   <div class="form-group">
-    <%= label f, :research_level_id, "Рівень дослідженості", class: "control-label" %>
-    <%= select f, :research_level_id, research_levels_for_select(@research_levels),
-     class: "form-control" %>
-    <%= error_tag f, :research_level_id %>
-  </div>
+    <%= label f, :checked_research_levels, "Рівень дослідженості:", class: "control-label" %>
+    <br>
+    <%= for {name, id} <- @research_levels do %>
+      <% checked = id in @find_research_levels_ids %>
+      <div><%= checkbox :checked_research_levels, "#{id}", value: name, checked: checked %> <%= name %></div>
+    <%= end %>
+  </div> -->
 
   <div class="form-group">
     <%= submit "Підтвердити", class: "btn btn-primary" %>
@@ -45,6 +89,19 @@
       zoom: 8
     });
   }
+
+var expanded = false;
+
+function showCheckboxes(name) {
+  var checkboxes = document.getElementById(name);
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyEdheGfafrbx5bk3xvSZW1uhwG8KKrtI&callback=initMap"

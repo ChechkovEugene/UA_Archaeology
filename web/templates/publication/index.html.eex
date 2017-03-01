@@ -1,9 +1,9 @@
-<h2>Listing publications</h2>
+<h2>Публікації</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Публікація</th>
 
       <th></th>
     </tr>
@@ -14,13 +14,13 @@
       <td><%= publication.name %></td>
 
       <td class="text-right">
-        <%= link "Show", to: user_publication_path(@conn, :show, @user, publication), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_publication_path(@conn, :edit, @user, publication), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_publication_path(@conn, :delete, @user, publication), method: :delete, data: [confirm: "Ви впевнені?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Переглянути", to: user_publication_path(@conn, :show, @user, publication), class: "btn btn-default btn-xs" %>
+        <%= link "Редагувати", to: user_publication_path(@conn, :edit, @user, publication), class: "btn btn-default btn-xs" %>
+        <%= link "Видалити", to: user_publication_path(@conn, :delete, @user, publication), method: :delete, data: [confirm: "Ви впевнені?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link "New culture", to: user_publication_path(@conn, :new, @user) %>
+<%= link "Нова публікація", to: user_publication_path(@conn, :new, @user) %>

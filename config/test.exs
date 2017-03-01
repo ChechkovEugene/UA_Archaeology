@@ -16,6 +16,7 @@ config :ua_archaeology, UaArchaeology.Repo,
   password: "postgres",
   database: "ua_archaeology_test",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  pool: Ecto.Adapters.SQL.Sandbox,
+  extensions: [{Geo.PostGIS.Extension, library: Geo}]
 
 config :comeonin, bcrypt_log_rounds: 4
