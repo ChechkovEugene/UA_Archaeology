@@ -14,6 +14,10 @@ defmodule UaArchaeology.Find do
     many_to_many :object_types, UaArchaeology.ObjectType,
         join_through: UaArchaeology.FindObjectType,
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
+    many_to_many :site_types, UaArchaeology.SiteType,
+        join_through: UaArchaeology.FindSiteType,
+        join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
+
     timestamps()
   end
 

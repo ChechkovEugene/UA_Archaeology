@@ -1,11 +1,11 @@
-defmodule UaArchaeology.FindObjectType do
+defmodule UaArchaeology.FindSiteType do
   use UaArchaeology.Web, :model
 
   @primary_key {:id, :id, autogenerate: false}
 
-  schema "finds_object_types" do
+  schema "finds_site_types" do
     belongs_to :find, UaArchaeology.Find
-    belongs_to :object_type, UaArchaeology.ObjectType, foreign_key: :parameter_id
+    belongs_to :site_type, UaArchaeology.SiteType, foreign_key: :parameter_id
 
     timestamps()
   end

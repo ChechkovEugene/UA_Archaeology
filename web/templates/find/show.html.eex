@@ -35,6 +35,13 @@
     <% end %>
   </li>
 
+  <li>
+    <strong>Типи пам'ятки:</strong>
+    <%= for site_type <- @find.site_types do %>
+    <%= site_type.name <> "," %>
+    <% end %>
+  </li>
+
 </ul>
 
 <%= if current_user = @conn.assigns[:current_user] do %>

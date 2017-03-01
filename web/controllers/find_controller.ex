@@ -8,6 +8,8 @@ defmodule UaArchaeology.FindController do
   alias UaArchaeology.FindResearchLevel
   alias UaArchaeology.ObjectType
   alias UaArchaeology.FindObjectType
+  alias UaArchaeology.SiteType
+  alias UaArchaeology.FindSiteType
 
   plug :scrub_params, "find" when action in [:create, :update]
   plug :assign_user
@@ -17,6 +19,7 @@ defmodule UaArchaeology.FindController do
   plug :load_conditions     when action in [:new, :create, :edit, :update]
   plug :load_research_levels     when action in [:new, :create, :edit, :update]
   plug :load_object_types     when action in [:new, :create, :edit, :update]
+  plug :load_site_types when action in [:new, :create, :edit, :update]
 
   def index(conn, _params) do
     # finds = Repo.all(assoc(conn.assigns[:user], :finds))
@@ -29,7 +32,8 @@ defmodule UaArchaeology.FindController do
       |> build_assoc(:finds)
       |> Find.changeset()
     render(conn, "new.html", changeset: changeset, find_conditions_ids: [],
-    find_research_levels_ids: [], find_object_types_ids: [])
+    find_research_levels_ids: [], find_object_types_ids: [],
+    find_site_types_ids: [])
   end
 
   def create(conn, %{"find" => find_params}) do
@@ -37,6 +41,7 @@ defmodule UaArchaeology.FindController do
     checked_conditions_ids = checked_ids(conn, "checked_conditions")
     checked_research_levels_ids = checked_ids(conn, "checked_research_levels")
     checked_object_types_ids = checked_ids(conn, "checked_object_types")
+    checked_site_types_ids = checked_ids(conn, "checked_site_types")
 
     changeset = conn.assigns[:user]
       |> build_assoc(:finds)
@@ -48,45 +53,53 @@ defmodule UaArchaeology.FindController do
         do_update_intermediate_table(FindCondition, find_id, [], checked_conditions_ids)
         do_update_intermediate_table(FindResearchLevel, find_id, [], checked_research_levels_ids)
         do_update_intermediate_table(FindObjectType, find_id, [], checked_object_types_ids)
+        do_update_intermediate_table(FindSiteType, find_id, [], checked_site_types_ids)
         conn
         |> put_flash(:info, "Археологічна пам'ятка успішно створена!")
         |> redirect(to: user_find_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, find_conditions_ids: checked_conditions_ids,
         find_research_levels_ids: checked_research_levels_ids,
-        find_object_types_ids: checked_object_types_ids)
+        find_object_types_ids: checked_object_types_ids,
+        find_site_types_ids: checked_site_types_ids)
     end
   end
 
   def show(conn, %{"id" => id}) do
     find = Repo.get!(Find, id)
-    find = Repo.preload find, [:conditions, :research_levels, :object_types]
+    find = Repo.preload find, [:conditions, :research_levels, :object_types,
+      :site_types]
     # find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
     render(conn, "show.html", find: find)
   end
 
   def edit(conn, %{"id" => id}) do
     find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
-    find = Repo.preload find, [:conditions, :research_levels, :object_types]
+    find = Repo.preload find, [:conditions, :research_levels, :object_types,
+      :site_types]
 
     finds_conditions_ids = find.conditions |> Enum.map(&(&1.id))
     find_research_levels_ids = find.research_levels |> Enum.map(&(&1.id))
     find_object_types_ids = find.object_types |> Enum.map(&(&1.id))
+    find_site_types_ids = find.site_types |> Enum.map(&(&1.id))
 
     changeset = Find.changeset(find)
     render(conn, "edit.html", find: find, changeset: changeset,
                               finds_conditions_ids: finds_conditions_ids  ,
                               find_research_levels_ids: find_research_levels_ids,
-                              find_object_types_ids: find_object_types_ids)
+                              find_object_types_ids: find_object_types_ids,
+                              find_site_types_ids: find_site_types_ids)
   end
 
   def update(conn, %{"id" => id, "find" => find_params}) do
     find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
-    find = Repo.preload find, [:conditions, :research_levels, :object_types]
+    find = Repo.preload find, [:conditions, :research_levels, :object_types,
+      :site_types]
 
     finds_conditions_ids = find.conditions |> Enum.map(&(&1.id))
     find_research_levels_ids = find.research_levels |> Enum.map(&(&1.id))
     find_object_types_ids = find.object_types |> Enum.map(&(&1.id))
+    find_site_types_ids = find.site_types |> Enum.map(&(&1.id))
 
     changeset = Find.changeset(find, find_params)
 
@@ -95,12 +108,14 @@ defmodule UaArchaeology.FindController do
     checked_conditions_ids = checked_ids(conn, "checked_conditions")
     checked_research_levels_ids = checked_ids(conn, "checked_research_levels")
     checked_object_types_ids = checked_ids(conn, "checked_object_types")
+    checked_site_types_ids = checked_ids(conn, "checked_site_types")
 
     case Repo.update(changeset) do
       {:ok, find} ->
         do_update_intermediate_table(FindCondition, find_id, [], checked_conditions_ids)
         do_update_intermediate_table(FindResearchLevel, find_id, [], checked_research_levels_ids)
         do_update_intermediate_table(FindObjectType, find_id, [], checked_object_types_ids)
+        do_update_intermediate_table(FindSiteType, find_id, [], checked_site_types_ids)
         conn
         |> put_flash(:info, "Археологічна пам'ятка успішно оновлена.")
         |> redirect(to: user_find_path(conn, :show, conn.assigns[:user], find))
@@ -223,5 +238,14 @@ defmodule UaArchaeology.FindController do
       |> ObjectType.names_and_ids
     object_types = Repo.all query
     assign(conn, :object_types, object_types)
+  end
+
+  defp load_site_types(conn, _) do
+    query =
+      SiteType
+      |> SiteType.alphabetical
+      |> SiteType.names_and_ids
+    site_types = Repo.all query
+    assign(conn, :site_types, site_types)
   end
 end

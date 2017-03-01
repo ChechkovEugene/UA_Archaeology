@@ -69,6 +69,23 @@
     </div>
   </div>
 
+  <div class="form-group multiselect">
+    <div class="selectBox" onclick="showCheckboxes('site_types')">
+      <select>
+        <option>Типи пам'ятки</option>
+      </select>
+      <div class="overSelect"></div>
+    </div>
+
+    <div id="site_types" class="checkboxes">
+      <%= for {name, id} <- @site_types do %>
+        id
+        <% checked = id in @find_site_types_ids %>
+        <div><%= checkbox :checked_site_types, "#{id}", value: name, checked: checked %> <%= name %></div>
+      <%= end %>
+    </div>
+  </div>
+
   <!-- <div class="form-group">
     <%= label f, :tag_ids, "Стан" %>
     <br>
