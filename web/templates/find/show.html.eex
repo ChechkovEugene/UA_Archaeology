@@ -43,9 +43,16 @@
   </li>
 
   <li>
-    <strong>Археологічні культури</strong>
+    <strong>Археологічні культури:</strong>
     <%= for culture <- @find.cultures do %>
     <%= culture.name <> "," %>
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Автори:</strong>
+    <%= for author <- @find.authors do %>
+    <%= author.name <> "," %>
     <% end %>
   </li>
 

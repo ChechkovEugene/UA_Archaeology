@@ -4,7 +4,9 @@ defmodule UaArchaeology.Author do
   schema "authors" do
     field :name, :string
     belongs_to :user, UaArchaeology.User
-    
+    many_to_many :authors, UaArchaeology.Author,
+      join_through: UaArchaeology.FindAuthor
+
     timestamps()
   end
 
@@ -15,5 +17,13 @@ defmodule UaArchaeology.Author do
     struct
     |> cast(params, [:name])
     |> validate_required([:name])
+  end
+
+  def alphabetical(query) do
+    from c in query, order_by: c.id
+  end
+
+  def names_and_ids(query) do
+    from c in query, select: {c.name, c.id}
   end
 end

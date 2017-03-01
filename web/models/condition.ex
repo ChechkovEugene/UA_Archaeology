@@ -5,6 +5,7 @@ defmodule UaArchaeology.Condition do
     field :name, :string
     belongs_to :user, UaArchaeology.User
     many_to_many :finds, UaArchaeology.Find, join_through: UaArchaeology.FindCondition
+    
     timestamps()
   end
 

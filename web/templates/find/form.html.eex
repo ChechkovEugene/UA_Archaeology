@@ -103,6 +103,23 @@
     </div>
   </div>
 
+  <div class="form-group multiselect">
+    <div class="selectBox" onclick="showCheckboxes('authors')">
+      <select>
+        <option>Автор</option>
+      </select>
+      <div class="overSelect"></div>
+    </div>
+
+    <div id="authors" class="checkboxes">
+      <%= for {name, id} <- @authors do %>
+        id
+        <% checked = id in @find_authors_ids %>
+        <div><%= checkbox :checked_authors, "#{id}", value: name, checked: checked %> <%= name %></div>
+      <%= end %>
+    </div>
+  </div>
+
   <!-- <div class="form-group">
     <%= label f, :tag_ids, "Стан" %>
     <br>

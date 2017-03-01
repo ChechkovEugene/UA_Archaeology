@@ -20,6 +20,10 @@ defmodule UaArchaeology.Find do
     many_to_many :cultures, UaArchaeology.Culture,
         join_through: UaArchaeology.FindCulture,
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
+    many_to_many :authors, UaArchaeology.Author,
+        join_through: UaArchaeology.FindAuthor,
+        join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
+
     timestamps()
   end
 
