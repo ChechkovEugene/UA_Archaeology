@@ -11,7 +11,9 @@ defmodule UaArchaeology.Find do
     many_to_many :research_levels, UaArchaeology.ResearchLevel,
       join_through: UaArchaeology.FindResearchLevel,
       join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
-
+    many_to_many :object_types, UaArchaeology.ObjectType,
+        join_through: UaArchaeology.FindObjectType,
+        join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
     timestamps()
   end
 

@@ -28,6 +28,13 @@
     <% end %>
   </li>
 
+  <li>
+    <strong>Типи об'єктів:</strong>
+    <%= for object_type <- @find.object_types do %>
+    <%= object_type.name <> "," %>
+    <% end %>
+  </li>
+
 </ul>
 
 <%= if current_user = @conn.assigns[:current_user] do %>

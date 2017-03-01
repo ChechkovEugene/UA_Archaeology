@@ -4,7 +4,9 @@
                         action: user_find_path(@conn, :create, @user),
                         conditions: @conditions,
                         research_levels: @research_levels,
+                        object_types: @object_types,
                         find_conditions_ids: @find_conditions_ids,
-                        find_research_levels_ids: @find_research_levels_ids %>
+                        find_research_levels_ids: @find_research_levels_ids,
+                        find_object_types_ids: @find_object_types_ids %>
 
 <%= link "Назад", to: user_find_path(@conn, :index, @user) %>
