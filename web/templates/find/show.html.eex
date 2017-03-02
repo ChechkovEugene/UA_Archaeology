@@ -10,6 +10,11 @@
   </li>
 
   <li>
+    <strong>id:</strong>
+    <%= @find.idn %>
+  </li>
+
+  <li>
     <strong>Топонім:</strong>
     <%= @find.topo %>
   </li>
@@ -50,6 +55,11 @@
   </li>
 
   <li>
+    <strong>Резюме:</strong>
+    <%= @find.description %>
+  </li>
+
+  <li>
     <strong>Автори:</strong>
     <%= for author <- @find.authors do %>
     <%= author.name <> "," %>
@@ -61,6 +71,16 @@
     <%= for publication <- @find.publications do %>
     <%= publication.name <> "," %>
     <% end %>
+  </li>
+
+  <li>
+    <strong>Реєстр:</strong>
+    <%= @find.register %>
+  </li>
+
+  <li>
+    <strong>Паспорт:</strong>
+    <%= @find.passport %>
   </li>
 
 </ul>

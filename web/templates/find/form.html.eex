@@ -14,6 +14,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :idn, "id", class: "control-label" %>
+    <%= text_input f, :idn, class: "form-control" %>
+    <%= error_tag f, :idn %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :topo, "Топонім", class: "control-label" %>
     <%= text_input f, :topo, class: "form-control" %>
     <%= error_tag f, :topo %>
@@ -103,6 +109,12 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <%= label f, :description, "Резюме", class: "control-label" %>
+    <%= text_input f, :description, class: "form-control" %>
+    <%= error_tag f, :description %>
+  </div>
+
   <div class="form-group multiselect">
     <div class="selectBox" onclick="showCheckboxes('authors')">
       <select>
@@ -135,6 +147,18 @@
         <div><%= checkbox :checked_publications, "#{id}", value: name, checked: checked %> <%= name %></div>
       <%= end %>
     </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :register, "Реєстр", class: "control-label" %>
+    <%= text_input f, :register, class: "form-control" %>
+    <%= error_tag f, :register %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :passport, "Паспорт", class: "control-label" %>
+    <%= text_input f, :passport, class: "form-control" %>
+    <%= error_tag f, :passport %>
   </div>
 
   <!-- <div class="form-group">

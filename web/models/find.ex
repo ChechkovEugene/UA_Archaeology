@@ -3,6 +3,7 @@ defmodule UaArchaeology.Find do
 
   schema "finds" do
     field :title, :string
+    field :idn, :string
     field :topo, :string
     belongs_to :user, UaArchaeology.User
     many_to_many :conditions, UaArchaeology.Condition,
@@ -20,12 +21,15 @@ defmodule UaArchaeology.Find do
     many_to_many :cultures, UaArchaeology.Culture,
         join_through: UaArchaeology.FindCulture,
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
+    field :description, :string
     many_to_many :authors, UaArchaeology.Author,
         join_through: UaArchaeology.FindAuthor,
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
     many_to_many :publications, UaArchaeology.Publication,
         join_through: UaArchaeology.FindPublication,
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
+    field :register, :string
+    field :passport, :string
 
     timestamps()
   end
@@ -35,7 +39,7 @@ defmodule UaArchaeology.Find do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :topo])
-    |> validate_required([:title, :topo])
+    |> cast(params, [:title, :idn, :topo])
+    |> validate_required([:title, :idn, :topo])
   end
 end

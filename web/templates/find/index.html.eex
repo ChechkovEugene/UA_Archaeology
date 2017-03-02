@@ -22,6 +22,7 @@
   <%= for find <- @finds do %>
       <tr>
         <td><%= find.title %></td>
+        <td><%= find.idn %></td>
         <td><%= find.topo %></td>
 
         <td class="text-right">
