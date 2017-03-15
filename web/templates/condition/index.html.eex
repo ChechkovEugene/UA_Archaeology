@@ -1,4 +1,4 @@
-<h2>Стани знахідок</h2>
+<h2>Стани пам'яток</h2>
 
 <table class="table">
   <thead>
@@ -23,4 +23,4 @@
   </tbody>
 </table>
 
-<%= link "Новий стан знахідок", to: user_condition_path(@conn, :new, @user) %>
+<%= link "Новий стан пам'яток", to: user_condition_path(@conn, :new, @user) %>

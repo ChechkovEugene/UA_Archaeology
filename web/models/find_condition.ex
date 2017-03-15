@@ -7,7 +7,7 @@ defmodule UaArchaeology.FindCondition do
     belongs_to :find, UaArchaeology.Find
     belongs_to :condition, UaArchaeology.Condition, foreign_key: :parameter_id
 
-    timestamps()
+    # timestamps()
   end
 
   @doc """
@@ -15,8 +15,8 @@ defmodule UaArchaeology.FindCondition do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:find_id, :condiition_id])
-    |> validate_required([:find_id, :condition_id])
-    |> unique_constraint(:find_id, :condition_id)
+    |> cast(params, [:find_id, :parameter_id])
+    |> validate_required([:find_id, :parameter_id])
+    |> unique_constraint(:find_id, :parameter_id)
   end
 end

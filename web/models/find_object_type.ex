@@ -7,7 +7,7 @@ defmodule UaArchaeology.FindObjectType do
     belongs_to :find, UaArchaeology.Find
     belongs_to :object_type, UaArchaeology.ObjectType, foreign_key: :parameter_id
 
-    timestamps()
+    # timestamps()
   end
 
   @doc """

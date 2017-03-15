@@ -4,27 +4,151 @@
       <p>Щось пішло не так! Перевірте список помилок нижче:</p>
     </div>
   <% end %>
-
-  <div id="findmap"></div>
-
-  <div class="form-group">
-    <%= label f, :title, "Назва пам'ятки", class: "control-label" %>
-    <%= text_input f, :title, class: "form-control" %>
-    <%= error_tag f, :title %>
+  <div class="row">
+    <div class="col-xs-6">
+      <div id="findmap"></div>
+    </div>
+    <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-4">
+          <%= label f, :area, "Площа пам'ятки, м2", class: "control-label" %>
+        </div>
+        <div class="col-xs-7">
+          <div class="form-group">
+            <%= text_input f, :area, class: "form-control" %>
+            <%= error_tag f, :area %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-3">
+            <%= label f, :coord1N, "Координати площі", class: "control-label" %>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord1N, "1", class: "control-label" %>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <%= text_input f, :coord1N, class: "form-control coord" %>
+              <%= error_tag f, :coord1N %>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord1N, "N", class: "control-label" %>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <%= text_input f, :coord1E, class: "form-control coord" %>
+              <%= error_tag f, :coord1E %>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord1E, "E", class: "control-label" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord2N, "2", class: "control-label" %>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <%= text_input f, :coord2N, class: "form-control coord" %>
+              <%= error_tag f, :coord2N %>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord2N, "N", class: "control-label" %>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <%= text_input f, :coord2E, class: "form-control coord" %>
+              <%= error_tag f, :coord2E %>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord2E, "E", class: "control-label" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord3N, "3", class: "control-label" %>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <%= text_input f, :coord3N, class: "form-control coord" %>
+              <%= error_tag f, :coord3N %>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord3N, "N", class: "control-label" %>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <%= text_input f, :coord3E, class: "form-control coord" %>
+              <%= error_tag f, :coord3E %>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord3E, "E", class: "control-label" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3">
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord4N, "4", class: "control-label" %>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <%= text_input f, :coord4N, class: "form-control coord" %>
+              <%= error_tag f, :coord4N %>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord4N, "N", class: "control-label" %>
+          </div>
+          <div class="col-xs-3">
+            <div class="form-group">
+              <%= text_input f, :coord4E, class: "form-control coord" %>
+              <%= error_tag f, :coord4E %>
+            </div>
+          </div>
+          <div class="col-xs-1">
+            <%= label f, :coord4E, "E", class: "control-label" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 
-  <div class="form-group">
-    <%= label f, :idn, "id", class: "control-label" %>
-    <%= text_input f, :idn, class: "form-control" %>
-    <%= error_tag f, :idn %>
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= label f, :title, "Назва пам'ятки", class: "control-label" %>
+        <%= text_input f, :title, class: "form-control" %>
+        <%= error_tag f, :title %>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= label f, :another_name, "Інші назви пам’ятки", class: "control-label" %>
+        <%= text_input f, :another_name, class: "form-control" %>
+        <%= error_tag f, :another_name %>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= label f, :topo, "Топонім", class: "control-label" %>
+        <%= text_input f, :topo, class: "form-control" %>
+        <%= error_tag f, :topo %>
+      </div>
+    </div>
   </div>
-
-  <div class="form-group">
-    <%= label f, :topo, "Топонім", class: "control-label" %>
-    <%= text_input f, :topo, class: "form-control" %>
-    <%= error_tag f, :topo %>
-  </div>
-
 
   <div class="form-group multiselect">
     <div class="selectBox" onclick="showCheckboxes('conditions')">
@@ -58,37 +182,40 @@
     </div>
   </div>
 
-  <div class="form-group multiselect">
-    <div class="selectBox" onclick="showCheckboxes('objects')">
-      <select>
-        <option>Типи об'єктів</option>
-      </select>
-      <div class="overSelect"></div>
-    </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group multiselect">
+        <div class="selectBox" onclick="showCheckboxes('site_types')">
+          <select>
+            <option>Тип пам'ятки</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
 
-    <div id="objects" class="checkboxes">
-      <%= for {name, id} <- @object_types do %>
-        id
-        <% checked = id in @find_object_types_ids %>
-        <div><%= checkbox :checked_object_types, "#{id}", value: name, checked: checked %> <%= name %></div>
-      <%= end %>
+        <div id="site_types" class="checkboxes">
+          <%= for {name, id} <- @site_types do %>
+            <% checked = id in @find_site_types_ids %>
+            <div><%= checkbox :checked_site_types, "#{id}", value: name, checked: checked %> <%= name %></div>
+          <%= end %>
+        </div>
+      </div>
     </div>
-  </div>
+    <div class="col-xs-6">
+      <div class="form-group multiselect">
+        <div class="selectBox" onclick="showCheckboxes('objects')">
+          <select>
+            <option>Типи об'єктів</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
 
-  <div class="form-group multiselect">
-    <div class="selectBox" onclick="showCheckboxes('site_types')">
-      <select>
-        <option>Типи пам'ятки</option>
-      </select>
-      <div class="overSelect"></div>
-    </div>
-
-    <div id="site_types" class="checkboxes">
-      <%= for {name, id} <- @site_types do %>
-        id
-        <% checked = id in @find_site_types_ids %>
-        <div><%= checkbox :checked_site_types, "#{id}", value: name, checked: checked %> <%= name %></div>
-      <%= end %>
+        <div id="objects" class="checkboxes">
+          <%= for {name, id} <- @object_types do %>
+            <% checked = id in @find_object_types_ids %>
+            <div><%= checkbox :checked_object_types, "#{id}", value: name, checked: checked %> <%= name %></div>
+          <%= end %>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -102,7 +229,6 @@
 
     <div id="cultures" class="checkboxes">
       <%= for {name, id} <- @cultures do %>
-        id
         <% checked = id in @find_cultures_ids %>
         <div><%= checkbox :checked_cultures, "#{id}", value: name, checked: checked %> <%= name %></div>
       <%= end %>
@@ -115,52 +241,68 @@
     <%= error_tag f, :description %>
   </div>
 
-  <div class="form-group multiselect">
-    <div class="selectBox" onclick="showCheckboxes('authors')">
-      <select>
-        <option>Автор</option>
-      </select>
-      <div class="overSelect"></div>
-    </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group multiselect">
+        <div class="selectBox" onclick="showCheckboxes('authors')">
+          <select>
+            <option>Автор</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
 
-    <div id="authors" class="checkboxes">
-      <%= for {name, id} <- @authors do %>
-        id
-        <% checked = id in @find_authors_ids %>
-        <div><%= checkbox :checked_authors, "#{id}", value: name, checked: checked %> <%= name %></div>
-      <%= end %>
+        <div id="authors" class="checkboxes">
+          <%= for {name, id} <- @authors do %>
+            <% checked = id in @find_authors_ids %>
+            <div><%= checkbox :checked_authors, "#{id}", value: name, checked: checked %> <%= name %></div>
+          <%= end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="form-group multiselect">
+        <div class="selectBox" onclick="showCheckboxes('publications')">
+          <select>
+            <option>Публікації</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
+
+        <div id="publications" class="checkboxes">
+          <%= for {name, id} <- @publications do %>
+            <% checked = id in @find_publications_ids %>
+            <div><%= checkbox :checked_publications, "#{id}", value: name, checked: checked %> <%= name %></div>
+          <%= end %>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="form-group multiselect">
-    <div class="selectBox" onclick="showCheckboxes('publications')">
-      <select>
-        <option>Публікації</option>
-      </select>
-      <div class="overSelect"></div>
+  <!-- <div class="row">
+    <div class="col-xs-6">
+
     </div>
+    <div class="col-xs-6">
 
-    <div id="publications" class="checkboxes">
-      <%= for {name, id} <- @publications do %>
-        id
-        <% checked = id in @find_publications_ids %>
-        <div><%= checkbox :checked_publications, "#{id}", value: name, checked: checked %> <%= name %></div>
-      <%= end %>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= label f, :register, "Реєстр", class: "control-label" %>
+        <%= text_input f, :register, class: "form-control" %>
+        <%= error_tag f, :register %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= label f, :passport, "Паспорт", class: "control-label" %>
+        <%= text_input f, :passport, class: "form-control" %>
+        <%= error_tag f, :passport %>
+      </div>
     </div>
   </div>
-
-  <div class="form-group">
-    <%= label f, :register, "Реєстр", class: "control-label" %>
-    <%= text_input f, :register, class: "form-control" %>
-    <%= error_tag f, :register %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :passport, "Паспорт", class: "control-label" %>
-    <%= text_input f, :passport, class: "form-control" %>
-    <%= error_tag f, :passport %>
-  </div>
-
   <!-- <div class="form-group">
     <%= label f, :tag_ids, "Стан" %>
     <br>
@@ -190,12 +332,14 @@
   </div>
 <% end %>
 
+<%= render "maps.html", conn: @conn %>
+
 <script type="text/javascript">
   var map;
   function initMap() {
     map = new google.maps.Map(document.getElementById('findmap'), {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 8
+      center: {lat: 49.0275, lng: 31.482778},
+      zoom: 7
     });
   }
 
@@ -211,6 +355,28 @@ function showCheckboxes(name) {
     expanded = false;
   }
 }
+
+window.addEventListener('input', function (e) {
+  if ($(event.target).attr('class') == "form-control coord") {
+    coord1N = document.getElementById('find_coord1N').value;
+    coord1E = document.getElementById('find_coord1E').value;
+    coord2N = document.getElementById('find_coord2N').value;
+    coord2E = document.getElementById('find_coord2E').value;
+    coord3N = document.getElementById('find_coord3N').value;
+    coord3E = document.getElementById('find_coord3E').value;
+    coord4N = document.getElementById('find_coord4N').value;
+    coord4E = document.getElementById('find_coord4E').value;
+
+
+    bounds = getBoundByCoords(coord1N, coord1E,
+      coord2N, coord2E,
+      coord3N, coord3E,
+      coord4N, coord3E);
+
+    map.setCenter(bounds.getCenter());
+  }
+}, false);
+
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyEdheGfafrbx5bk3xvSZW1uhwG8KKrtI&callback=initMap"

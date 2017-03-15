@@ -12,16 +12,16 @@
                 <% end %>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Археологічні знахідки України</a>
+            <%= link "Археологічні пам'ятки України", to: page_path(@conn, :index), class: "navbar-brand" %>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="nav navbar-nav">
               <li class="active"><%= link "Головна", to: page_path(@conn, :index) %></li>
               <%= if current_user = @conn.assigns[:current_user] do %>
-                <li class="active"><%= link "Знахідки", to: user_find_path(@conn, :index, current_user.id) %></li>
-                <li><%= link "Мої знахідки", to: user_find_path(@conn, :index, current_user.id) %></li>
-                <li><%= link "Нова знахідка", to: user_find_path(@conn, :new, current_user.id) %></li>
+                <li class="active"><%= link "Пам'ятки", to: user_find_path(@conn, :index, current_user.id) %></li>
+                <li><%= link "Мої пам'ятки", to: user_find_path(@conn, :index, current_user.id) %></li>
+                <li><%= link "Нова пам'ятка", to: user_find_path(@conn, :new, current_user.id) %></li>
                 <li class="dropdown">
                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">Додатки<b class="caret"></b></a>
                      <ul role="menu" class="dropdown-menu">
@@ -36,7 +36,7 @@
                      </ul>
                  </li>
               <% else %>
-                <li class="active"><%= link "Знахідки", to: user_find_path(@conn, :index, -1) %></li>
+                <li class="active"><%= link "Пам'ятки", to: user_find_path(@conn, :index, -1) %></li>
               <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -50,6 +50,9 @@
                   <%= link "Вийти", to: session_path(@conn, :delete, current_user.id), method: :delete, class: "button alert" %>
                 </li>
               <% else %>
+                <li>
+                  <%= link "Реєстрація", to: user_path(@conn, :new), class: "button" %>
+                </li>
                 <li>
                   <%= link "Увійти", to: session_path(@conn, :new), class: "button" %>
                 </li>

@@ -2,12 +2,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="База археологічних знахідок України">
+  <meta name="description" content="База археологічних пам'яток України">
   <meta name="author" content="Eugene Chechkov">
   <%= if current_user = @conn.assigns[:current_user] do %>
     <%= tag :meta, name: "channel_token", content: Phoenix.Token.sign(@conn, "user", current_user.id) %>
   <% end %>
 
-  <title>База археологічних знахідок України</title>
+  <title>База археологічних пам'яток України</title>
   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
 </head>

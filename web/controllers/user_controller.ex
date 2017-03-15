@@ -5,7 +5,7 @@ defmodule UaArchaeology.UserController do
   alias UaArchaeology.Role
 
   plug :scrub_params, "user" when action in [:create, :update]
-  plug :authorize_admin when action in [:new, :create]
+  # plug :authorize_admin when action in [:new, :create]
   plug :authorize_user when action in [:edit, :update, :delete]
 
   defp authorize_user(conn, _) do
@@ -47,10 +47,23 @@ defmodule UaArchaeology.UserController do
 
   def create(conn, %{"user" => user_params}) do
     roles = Repo.all(Role)
-    changeset = User.changeset(%User{}, user_params)
+    case Map.has_key?(user_params, "role_id") do
+      true ->
+        IO.puts "True"
+        changeset = User.changeset(%User{}, user_params)
+      _ ->
+      user_role_name = "User Role"
+      case Repo.one(from r in Role, where: r.name == ^user_role_name) do
+        nil ->
+          changeset = User.changeset(%User{}, user_params)
+        role ->
+          user_params = Map.put(user_params, "role_id", role.id)
+          changeset = User.changeset(%User{}, user_params)
+      end
+    end
 
     case Repo.insert(changeset) do
-      {:ok, _user} ->
+      {:ok, user} ->
         conn
         |> put_flash(:info, "Користувач успішно створений!")
         |> redirect(to: user_path(conn, :index))

@@ -35,8 +35,33 @@ import Ecto.Query, only: [from: 2]
      _ ->
        IO.puts "User: #{username} already exists, skipping"
    end
- end
+  end
+
+
+ find_or_create_site_type = fn name, user ->
+   case Repo.all(from st in SiteType, where: u.name== ^name) do
+     [] ->
+       %SiteType{}
+       |> SiteType.changeset(%{name: name, user_id: user.id})
+      |> Repo.insert!()
+     _ ->
+       IO.puts "Site type: #{name} already exists, skipping"
+   end
+  end
 
  _user_role  = find_or_create_role.("User Role", false)
  admin_role  = find_or_create_role.("Admin Role", true)
- _admin_user = find_or_create_user.("admin", "admin@test.com", admin_role)
+ admin_user = find_or_create_user.("admin", "admin@test.com", admin_role)
+
+_site_type = find_or_create_site_type.("поселення", admin_user)
+_site_type = find_or_create_site_type.("городище", admin_user)
+_site_type = find_or_create_site_type.("посад", admin_user)
+_site_type = find_or_create_site_type.("виробничі осередки", admin_user)
+_site_type = find_or_create_site_type.("скарб", admin_user)
+_site_type = find_or_create_site_type.("окрема знахідка", admin_user)
+_site_type = find_or_create_site_type.("могильник ґрунтовий", admin_user)
+_site_type = find_or_create_site_type.("могильник курганний", admin_user)
+_site_type = find_or_create_site_type.("окреме поховання", admin_user)
+_site_type = find_or_create_site_type.("культові споруди", admin_user)
+_site_type = find_or_create_site_type.("місце жертвоприношень", admin_user)
+_site_type = find_or_create_site_type.("місцезнаходження", admin_user)

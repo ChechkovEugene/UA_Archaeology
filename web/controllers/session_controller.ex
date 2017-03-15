@@ -19,6 +19,7 @@ defmodule UaArchaeology.SessionController do
   end
 
   def create(conn, _) do
+    IO.puts "Create2"
     failed_login(conn)
   end
 

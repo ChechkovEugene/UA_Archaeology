@@ -95,7 +95,7 @@ defmodule UaArchaeology.SiteTypeControllerTest do
         password_confirmation: "test"})
       conn = get conn, user_site_type_path(conn, :edit, other_user, site_type)
       assert get_flash(conn, :error) ==
-         "Ви не авторизовані для редагування цього типу археологічної знахідки!"
+         "Ви не авторизовані для редагування цього типу археологічної пам'ятки!"
       assert redirected_to(conn) == page_path(conn, :index)
       assert conn.halted
   end
@@ -108,7 +108,7 @@ defmodule UaArchaeology.SiteTypeControllerTest do
       conn = delete conn, user_site_type_path(conn, :delete, other_user,
         site_type)
       assert get_flash(conn, :error) ==
-        "Ви не авторизовані для редагування цього типу археологічної знахідки!"
+        "Ви не авторизовані для редагування цього типу археологічної пам'ятки!"
       assert redirected_to(conn) == page_path(conn, :index)
       assert conn.halted
   end

@@ -46,7 +46,49 @@ defmodule UaArchaeology.FindController do
     find_publications_ids: [])
   end
 
+  # defp get_coords(coords_string) when coords_string == nil , do: nil
+  #
+  # defp get_coords(coords_string) do
+  #   parse_coords(coords_string)
+  #   |> convert_coords
+  # end
+  #
+  # defp parse_coords(coords_string) do
+  #   regex = ~r/([0-8][0-9]|[9][0])°([0-9][0-9]\.[0-9])´/
+  #   Regex.run(regex, coords_string)
+  # end
+  #
+  # defp convert_coords(coords) when coords == nil or coords == [], do: nil
+  #
+  # defp convert_coords(coords) do
+  #   [head | tail] = coords
+  #   [degrees | tail] = tail
+  #   [minutes | tail] = tail
+  #   String.to_integer(degrees) + String.to_float(minutes)/60.0
+  # end
+
   def create(conn, %{"find" => find_params}) do
+
+    # coords1 = {get_coords(find_params["coord1N"]),
+    #   get_coords(find_params["coord1E"])}
+    # geom1 = %Geo.Point{coordinates: coords1, srid: 4326}
+    #
+    # coords2 = {get_coords(find_params["coord2N"]),
+    #   get_coords(find_params["coord2E"])}
+    # geom2 = %Geo.Point{coordinates: coords2, srid: 4326}
+    #
+    # coords3 = {get_coords(find_params["coord3N"]),
+    #   get_coords(find_params["coord3E"])}
+    # geom3 = %Geo.Point{coordinates: coords3, srid: 4326}
+    #
+    # coords4 = {get_coords(find_params["coord4N"]),
+    #   get_coords(find_params["coord4E"])}
+    # geom4 = %Geo.Point{coordinates: coords4, srid: 4326}
+    #
+    # find_params = %{find_params | :coord1 => geom1}
+    # find_params = %{find_params | :coord2 => geom2}
+    # find_params = %{find_params | :coord3 => geom3}
+    # find_params = %{find_params | :coord4 => geom4}
 
     checked_conditions_ids = checked_ids(conn, "checked_conditions")
     checked_research_levels_ids = checked_ids(conn, "checked_research_levels")
@@ -71,11 +113,11 @@ defmodule UaArchaeology.FindController do
           checked_object_types_ids)
         do_update_intermediate_table(FindSiteType, find_id, [],
           checked_site_types_ids)
-        do_update_intermediate_table(FindCultures, find_id, [],
+        do_update_intermediate_table(FindCulture, find_id, [],
           checked_cultures_ids)
-        do_update_intermediate_table(FindAuthors, find_id, [],
+        do_update_intermediate_table(FindAuthor, find_id, [],
           checked_authors_ids)
-        do_update_intermediate_table(FindPublications, find_id, [],
+        do_update_intermediate_table(FindPublication, find_id, [],
           checked_publications_ids)
         conn
         |> put_flash(:info, "Археологічна пам'ятка успішно створена!")
@@ -105,7 +147,7 @@ defmodule UaArchaeology.FindController do
     find = Repo.preload find, [:conditions, :research_levels, :object_types,
       :site_types, :cultures, :authors, :publications]
 
-    finds_conditions_ids = find.conditions |> Enum.map(&(&1.id))
+    find_conditions_ids = find.conditions |> Enum.map(&(&1.id))
     find_research_levels_ids = find.research_levels |> Enum.map(&(&1.id))
     find_object_types_ids = find.object_types |> Enum.map(&(&1.id))
     find_site_types_ids = find.site_types |> Enum.map(&(&1.id))
@@ -115,7 +157,7 @@ defmodule UaArchaeology.FindController do
 
     changeset = Find.changeset(find)
     render(conn, "edit.html", find: find, changeset: changeset,
-                              finds_conditions_ids: finds_conditions_ids,
+                              find_conditions_ids: find_conditions_ids,
                               find_research_levels_ids: find_research_levels_ids,
                               find_object_types_ids: find_object_types_ids,
                               find_site_types_ids: find_site_types_ids,
@@ -128,6 +170,22 @@ defmodule UaArchaeology.FindController do
     find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
     find = Repo.preload find, [:conditions, :research_levels, :object_types,
       :site_types, :cultures, :authors, :publications]
+
+    # coords1 = {get_coords(find_params["coord1N"]),
+    # get_coords(find_params["coord1E"])}
+    # geom1 = %Geo.Point{coordinates: coords1, srid: 4326}
+    #
+    # coords2 = {get_coords(find_params["coord2N"]),
+    # get_coords(find_params["coord2E"])}
+    # geom2 = %Geo.Point{coordinates: coords2, srid: 4326}
+    #
+    # coords3 = {get_coords(find_params["coord3N"]),
+    # get_coords(find_params["coord3E"])}
+    # geom3 = %Geo.Point{coordinates: coords3, srid: 4326}
+    #
+    # coords4 = {get_coords(find_params["coord4N"]),
+    # get_coords(find_params["coord4E"])}
+    # geom4 = %Geo.Point{coordinates: coords4, srid: 4326}
 
     finds_conditions_ids = find.conditions |> Enum.map(&(&1.id))
     find_research_levels_ids = find.research_levels |> Enum.map(&(&1.id))
@@ -161,9 +219,9 @@ defmodule UaArchaeology.FindController do
           checked_site_types_ids)
         do_update_intermediate_table(FindCulture, find_id, [],
           checked_cultures_ids)
-        do_update_intermediate_table(FindAuthors, find_id, [],
+        do_update_intermediate_table(FindAuthor, find_id, [],
           checked_authors_ids)
-        do_update_intermediate_table(FindPublications, find_id, [],
+        do_update_intermediate_table(FindPublication, find_id, [],
             checked_publications_ids)
         conn
         |> put_flash(:info, "Археологічна пам'ятка успішно оновлена.")

@@ -51,6 +51,7 @@ conventions: {
 
   npm: {
     enabled: true,
+    whitelist: ["phoenix", "phoenix_html", "jquery", "jquery-validation"],
     globals: { // bootstrap-sass' JavaScript requires both '$' and 'jQuery' in global scope
       $: 'jquery',
       jQuery: 'jquery',

@@ -3,6 +3,7 @@ defmodule UaArchaeology.Find do
 
   schema "finds" do
     field :title, :string
+    field :another_name, :string
     field :idn, :string
     field :topo, :string
     belongs_to :user, UaArchaeology.User
@@ -30,7 +31,19 @@ defmodule UaArchaeology.Find do
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
     field :register, :string
     field :passport, :string
-
+    # field :coords1, Geo.Point
+    # field :coords2, Geo.Point
+    # field :coords3, Geo.Point
+    # field :coords4, Geo.Point
+    field :coord1N, :string
+    field :coord2N, :string
+    field :coord3N, :string
+    field :coord4N, :string
+    field :coord1E, :string
+    field :coord2E, :string
+    field :coord3E, :string
+    field :coord4E, :string
+    field :area,  :decimal
     timestamps()
   end
 
@@ -39,7 +52,9 @@ defmodule UaArchaeology.Find do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :idn, :topo])
-    |> validate_required([:title, :idn, :topo])
+    |> cast(params, [:title, :idn, :topo, :area,
+      :coord1N, :coord2N, :coord3N, :coord4N,
+      :coord1E, :coord2E, :coord3E, :coord4E])
+    |> validate_required([:title, :idn, :topo, :area])
   end
 end

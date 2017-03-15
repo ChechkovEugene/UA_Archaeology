@@ -5,6 +5,56 @@
 <ul>
 
   <li>
+    <strong>Площа пам'ятки:</strong>
+    <%= @find.area %>
+  </li>
+
+  <li>
+    <strong>1N:</strong>
+    <%= @find.coord1N %>
+  </li>
+
+  <li>
+    <strong>2N:</strong>
+    <%= @find.coord2N %>
+  </li>
+
+
+  <li>
+    <strong>3N:</strong>
+    <%= @find.coord3N %>
+  </li>
+
+
+  <li>
+    <strong>4N:</strong>
+    <%= @find.coord4N %>
+  </li>
+
+
+  <li>
+    <strong>1E:</strong>
+    <%= @find.coord1E %>
+  </li>
+
+  <li>
+    <strong>2E:</strong>
+    <%= @find.coord2E %>
+  </li>
+
+
+  <li>
+    <strong>3E:</strong>
+    <%= @find.coord3E %>
+  </li>
+
+
+  <li>
+    <strong>4E:</strong>
+    <%= @find.coord4E %>
+  </li>
+
+  <li>
     <strong>Назва:</strong>
     <%= @find.title %>
   </li>
@@ -90,13 +140,41 @@
 <% end %>
 <%= link "Назад", to: find_path(@conn, :index) %>
 
+<%= render "maps.html", conn: @conn %>
 
 <script type="text/javascript">
   var map;
   function initMap() {
     map = new google.maps.Map(document.getElementById('findmap'), {
-      center: {lat: -34.397, lng: 150.644},
+      center: {lat: 49.0275, lng: 31.482778},
       zoom: 8
+    });
+
+    var contentString = '<%= @find.title %>' + '<br/>' +
+    '<%= if current_user = @conn.assigns[:current_user] do %>' +
+    '  <%= link "Редагувати", to: user_find_path(@conn, :edit, @user, @find) %>'
+    '<% end %>'
+
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    bounds = getBoundByCoords(
+      "<%= @find.coord1N %>", "<%= @find.coord1E %>",
+      "<%= @find.coord2N %>", "<%= @find.coord2E %>",
+      "<%= @find.coord3N %>", "<%= @find.coord3E %>",
+      "<%= @find.coord4N %>", "<%= @find.coord3E %>");
+
+    map.setCenter(bounds.getCenter());
+
+    var marker = new google.maps.Marker({
+      position: bounds.getCenter(),
+      map: map,
+      title: '<%= @find.title %>'
+    });
+
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
     });
   }
 </script>

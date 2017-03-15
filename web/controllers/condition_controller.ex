@@ -30,7 +30,7 @@ defmodule UaArchaeology.ConditionController do
     case Repo.insert(changeset) do
       {:ok, _condition} ->
         conn
-        |> put_flash(:info, "Стан знахідок успішно створений!")
+        |> put_flash(:info, "Стан пам'яток успішно створений!")
         |> redirect(to: user_condition_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -56,7 +56,7 @@ defmodule UaArchaeology.ConditionController do
       case Repo.update(changeset) do
         {:ok, condition} ->
           conn
-          |> put_flash(:info, "Стан знахідок було успішно змінено.")
+          |> put_flash(:info, "Стан пам'яток було успішно змінено.")
           |> redirect(to: user_condition_path(conn, :show, conn.assigns[:user],
             condition))
         {:error, changeset} ->
@@ -72,7 +72,7 @@ defmodule UaArchaeology.ConditionController do
       Repo.delete!(condition)
 
       conn
-      |> put_flash(:info, "Стан знахідок було успішно видалено.")
+      |> put_flash(:info, "Стан пам'яток було успішно видалено.")
       |> redirect(to: user_condition_path(conn, :index, conn.assigns[:user]))
     end
 
@@ -101,7 +101,7 @@ defmodule UaArchaeology.ConditionController do
     else
       conn
       |> put_flash(:error, "Ви не авторизовані для редагування
-      цього стану знахідок!")
+      цього стану пам'яток!")
       |> redirect(to: page_path(conn, :index))
       |> halt()
     end

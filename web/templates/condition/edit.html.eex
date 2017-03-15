@@ -1,4 +1,4 @@
-<h2>Редагувати стан знахідок</h2>
+<h2>Редагувати стан пам'яток</h2>
 
 <%= render "form.html", changeset: @changeset,
                         action: user_condition_path(@conn, :update, @user, @condition) %>

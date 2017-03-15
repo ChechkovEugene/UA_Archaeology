@@ -7,7 +7,7 @@ defmodule UaArchaeology.FindResearchLevel do
     belongs_to :find, UaArchaeology.Find
     belongs_to :research_level, UaArchaeology.ResearchLevel,
       foreign_key: :parameter_id
-    timestamps()
+    # timestamps()
   end
 
   @doc """
@@ -17,6 +17,6 @@ defmodule UaArchaeology.FindResearchLevel do
     struct
     |> cast(params, [:find_id, :parameter_id])
     |> validate_required([:find_id, :parameter_id])
-    |> unique_constraint(:condition_id, :parameter_id)
+    |> unique_constraint(:find_id, :parameter_id)
   end
 end

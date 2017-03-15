@@ -8,7 +8,7 @@ defmodule UaArchaeology.FindPublication do
     belongs_to :publication, UaArchaeology.Publication,
       foreign_key: :parameter_id
 
-    timestamps()
+    # timestamps()
   end
 
   @doc """

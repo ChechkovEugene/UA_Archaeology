@@ -15,8 +15,8 @@ defmodule UaArchaeology.FindAuthor do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:find_id, :author_id])
-    |> validate_required([:find_id, :condition_id])
-    |> unique_constraint(:find_id, :condition_id)
+    |> cast(params, [:find_id, :parameter_id])
+    |> validate_required([:find_id, :parameter_id])
+    |> unique_constraint(:find_id, :parameter_id)
   end
 end

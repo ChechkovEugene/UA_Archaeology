@@ -42,7 +42,9 @@ defmodule UaArchaeology.Mixfile do
      {:ex_machina, "~> 1.0"},
      {:earmark, "~> 1.0.1"},
      {:csv, "~> 1.2.3"},
-     {:geo, "~> 1.0"}]
+     {:geo, "~> 1.0"},
+     {:pdf_generator, "~> 0.3.5"},
+     {:xlsxir, "~> 1.4.1"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

@@ -11,8 +11,9 @@ msgstr ""
 "Language: en\n"
 
 ## From Ecto.Changeset.cast/4
-msgid "can't be blank"
-msgstr ""
+## msgid "can't be blank"
+msgid "Не може бути пустим"
+msgstr "Не може бути пустим"
 
 ## From Ecto.Changeset.unique_constraint/3
 msgid "has already been taken"

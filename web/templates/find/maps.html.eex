@@ -1,0 +1,58 @@
+<script type="text/javascript">
+function getBoundByCoords(coord1N, coord1E, coord2N, coord2E,
+    coord3N, coord3E, coord4N, coord4E) {
+  point1 = checkPoint(coord1N, coord1E);
+  point2 = checkPoint(coord2N, coord2E);
+  point3 = checkPoint(coord4N, coord3E);
+  point4 = checkPoint(coord4N, coord4E);
+  var points = [];
+
+  if (point1 != null) {
+    points.push(point1);
+  }
+
+  if (point2 != null) {
+    points.push(point2);
+  }
+
+  if (point3 != null) {
+    points.push(point3);
+  }
+
+  if (point4 != null) {
+    points.push(point4);
+  }
+
+  var bounds = new google.maps.LatLngBounds();
+  for (i = 0; i < points.length; i++) {
+    bounds.extend(points[i]);
+  }
+  return bounds;
+}
+
+function dms2dd() {
+
+	ddLatVal = dmsLatDeg.value*1 + dmsLatMin.value/60 + dmsLatSec.value/3600;
+	ddLatVal = dmsLatHem.options[dmsLatHem.selectedIndex].value + ddLatVal;
+
+	ddLongVal = dmsLongDeg.value*1 + dmsLongMin.value/60 + dmsLongSec.value/3600;
+	ddLongVal = dmsLongHem.options[dmsLongHem.selectedIndex].value + ddLongVal;
+
+	ddLat.value  = ddLatVal;
+	ddLong.value = ddLongVal;
+}
+
+function checkPoint(valueN, valueE) {
+  var myReN = /([0-8][0-9]|[9][0])°([0-9][0-9]\.[0-9])´/ig;
+  var myReE = /([0-8][0-9]|[9][0])°([0-9][0-9]\.[0-9])´/ig;
+  valueNCheck = myReN.exec(valueN);
+  valueECheck = myReE.exec(valueE);
+  if (valueNCheck != null && valueECheck != null) {
+    ddLatVal = parseInt(valueNCheck[1])*1 + parseFloat(valueNCheck[2])/60; //+ dmsLatSec.value/3600;
+    ddLongVal = parseInt(valueECheck[1])*1 + parseFloat(valueECheck[2])/60; //+ dmsLongSec.value/3600;
+    var newLoc = new google.maps.LatLng(ddLatVal, ddLongVal);
+    return newLoc;
+  }
+  return null
+}
+</script>
