@@ -6,6 +6,8 @@ defmodule UaArchaeology.Find do
     field :another_name, :string
     field :idn, :string
     field :topo, :string
+    field :storage_place, :string
+    field :archival_storage, :string
     belongs_to :user, UaArchaeology.User
     many_to_many :conditions, UaArchaeology.Condition,
       join_through: UaArchaeology.FindCondition,

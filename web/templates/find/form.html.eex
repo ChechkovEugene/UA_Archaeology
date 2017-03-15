@@ -235,12 +235,6 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <%= label f, :description, "Резюме", class: "control-label" %>
-    <%= text_input f, :description, class: "form-control" %>
-    <%= error_tag f, :description %>
-  </div>
-
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group multiselect">
@@ -290,19 +284,43 @@
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group">
-        <%= label f, :register, "Реєстр", class: "control-label" %>
+        <%= label f, :storage_place, "Місце зберігання колекції", class: "control-label" %>
+        <%= text_input f, :storage_place, class: "form-control" %>
+        <%= error_tag f, :storage_place %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= label f, :archival_storage, "Архівні джерела", class: "control-label" %>
+        <%= text_input f, :archival_storage, class: "form-control" %>
+        <%= error_tag f, :archival_storage %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <%= label f, :register, "Державний реєстр", class: "control-label" %>
         <%= text_input f, :register, class: "form-control" %>
         <%= error_tag f, :register %>
       </div>
     </div>
     <div class="col-xs-6">
       <div class="form-group">
-        <%= label f, :passport, "Паспорт", class: "control-label" %>
+        <%= label f, :passport, "Паспорт (наявність)", class: "control-label" %>
         <%= text_input f, :passport, class: "form-control" %>
         <%= error_tag f, :passport %>
       </div>
     </div>
   </div>
+
+  <div class="form-group">
+    <%= label f, :description, "Резюме", class: "control-label" %>
+    <%= text_input f, :description, class: "form-control" %>
+    <%= error_tag f, :description %>
+  </div>
+
   <!-- <div class="form-group">
     <%= label f, :tag_ids, "Стан" %>
     <br>
