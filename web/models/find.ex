@@ -46,6 +46,9 @@ defmodule UaArchaeology.Find do
     field :coord3E, :string
     field :coord4E, :string
     field :area,  :decimal
+    field :layer_thickness, :decimal
+    field :width, :decimal
+    field :height, :decimal
     timestamps()
   end
 

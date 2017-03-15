@@ -150,6 +150,30 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= label f, :layer_thickness, "Потужність культурного шару (м)", class: "control-label" %>
+        <%= text_input f, :layer_thickness, class: "form-control" %>
+        <%= error_tag f, :layer_thickness %>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= label f, :height, "Довжина пам'ятки", class: "control-label" %>
+        <%= text_input f, :height, class: "form-control" %>
+        <%= error_tag f, :height %>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="form-group">
+        <%= label f, :width, "Ширина пам’ятки", class: "control-label" %>
+        <%= text_input f, :width, class: "form-control" %>
+        <%= error_tag f, :width %>
+      </div>
+    </div>
+  </div>
+
   <div class="form-group multiselect">
     <div class="selectBox" onclick="showCheckboxes('conditions')">
       <select>
