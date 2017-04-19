@@ -16,6 +16,7 @@ alias UaArchaeology.User
 alias UaArchaeology.SiteType
 alias UaArchaeology.Culture
 alias UaArchaeology.NaturalResearch
+alias UaArchaeology.Condition
 
 import Ecto.Query, only: [from: 2]
 
