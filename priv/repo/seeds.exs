@@ -43,7 +43,7 @@ end
 
 
 find_or_create_site_type = fn name, user ->
-  case Repo.all(from st in SiteType, where: u.name== ^name) do
+  case Repo.all(from st in SiteType, where: st.name== ^name) do
     [] ->
       %SiteType{}
       |> SiteType.changeset(%{name: name, user_id: user.id})
@@ -54,7 +54,7 @@ find_or_create_site_type = fn name, user ->
 end
 
 find_or_create_culture = fn name, user ->
-  case Repo.all(from c in Culture, where: u.name== ^name) do
+  case Repo.all(from c in Culture, where: c.name== ^name) do
     [] ->
       %Culture{}
       |> Culture.changeset(%{name: name, user_id: user.id})
@@ -65,7 +65,7 @@ find_or_create_culture = fn name, user ->
 end
 
 find_or_create_culture = fn name, user ->
-  case Repo.all(from c in Culture, where: u.name== ^name) do
+  case Repo.all(from c in Culture, where: c.name== ^name) do
     [] ->
       %Culture{}
         |> Culture.changeset(%{name: name, user_id: user.id})
@@ -76,7 +76,7 @@ find_or_create_culture = fn name, user ->
 end
 
 find_or_create_condition = fn name, user ->
-  case Repo.all(from c in Condition, where: u.name== ^name) do
+  case Repo.all(from c in Condition, where: c.name== ^name) do
     [] ->
       %Condition{}
       |> Condition.changeset(%{name: name, user_id: user.id})
@@ -87,7 +87,7 @@ find_or_create_condition = fn name, user ->
 end
 
 find_or_create_natural_research = fn name, user ->
-  case Repo.all(from nr in NaturalResearch, where: u.name== ^name) do
+  case Repo.all(from nr in NaturalResearch, where: c.name== ^name) do
     [] ->
       %NaturalResearch{}
       |> NaturalResearch.changeset(%{name: name, user_id: user.id})
