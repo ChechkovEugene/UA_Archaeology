@@ -23,7 +23,7 @@ config :logger, level: :info
 config :comeonin, bcrypt_log_rounds: 14
 
 # Configure your database
-config :hello_phoenix, HelloPhoenix.Repo,
+config :ua_archaeology, HelloPhoenix.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
