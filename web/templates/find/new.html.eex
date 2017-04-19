@@ -10,12 +10,14 @@
                         cultures: @cultures,
                         authors: @authors,
                         publications: @publications,
+                        natural_researches: @natural_researches,
                         find_conditions_ids: @find_conditions_ids,
                         find_research_levels_ids: @find_research_levels_ids,
                         find_object_types_ids: @find_object_types_ids,
                         find_site_types_ids: @find_site_types_ids,
                         find_cultures_ids: @find_cultures_ids,
                         find_authors_ids: @find_authors_ids,
-                        find_publications_ids: @find_publications_ids %>
+                        find_publications_ids: @find_publications_ids,
+                        find_natural_researches_ids: @find_natural_researches_ids %>
 
 <%= link "Назад", to: user_find_path(@conn, :index, @user) %>

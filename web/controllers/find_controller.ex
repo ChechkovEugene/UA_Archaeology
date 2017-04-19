@@ -16,6 +16,8 @@ defmodule UaArchaeology.FindController do
   alias UaArchaeology.FindAuthor
   alias UaArchaeology.Publication
   alias UaArchaeology.FindPublication
+  alias UaArchaeology.NaturalResearch
+  alias UaArchaeology.FindNaturalResearch
 
   plug :scrub_params, "find" when action in [:create, :update]
   plug :assign_user
@@ -29,6 +31,7 @@ defmodule UaArchaeology.FindController do
   plug :load_cultures when action in [:new, :create, :edit, :update]
   plug :load_authors when action in [:new, :create, :edit, :update]
   plug :load_publications when action in [:new, :create, :edit, :update]
+  plug :load_natural_researches when action in [:new, :create, :edit, :update]
 
   def index(conn, _params) do
     # finds = Repo.all(assoc(conn.assigns[:user], :finds))
@@ -43,7 +46,7 @@ defmodule UaArchaeology.FindController do
     render(conn, "new.html", changeset: changeset, find_conditions_ids: [],
     find_research_levels_ids: [], find_object_types_ids: [],
     find_site_types_ids: [], find_cultures_ids: [], find_authors_ids: [],
-    find_publications_ids: [])
+    find_publications_ids: [], find_natural_researches_ids: [])
   end
 
   # defp get_coords(coords_string) when coords_string == nil , do: nil
@@ -97,6 +100,7 @@ defmodule UaArchaeology.FindController do
     checked_cultures_ids = checked_ids(conn, "checked_cultures")
     checked_authors_ids = checked_ids(conn, "checked_authors")
     checked_publications_ids = checked_ids(conn, "checked_publications")
+    checked_natural_researches_ids = checked_ids(conn, "checked_natural_researches")
 
     changeset = conn.assigns[:user]
       |> build_assoc(:finds)
@@ -119,6 +123,8 @@ defmodule UaArchaeology.FindController do
           checked_authors_ids)
         do_update_intermediate_table(FindPublication, find_id, [],
           checked_publications_ids)
+        do_update_intermediate_table(FindNaturalResearch, find_id, [],
+          checked_natural_researches_ids)
         conn
         |> put_flash(:info, "Археологічна пам'ятка успішно створена!")
         |> redirect(to: user_find_path(conn, :index, conn.assigns[:user]))
@@ -130,14 +136,15 @@ defmodule UaArchaeology.FindController do
         find_site_types_ids: checked_site_types_ids,
         find_cultures_ids: checked_cultures_ids,
         find_authors_ids: checked_authors_ids,
-        find_publications_ids: checked_publications_ids)
+        find_publications_ids: checked_publications_ids,
+        find_natural_researches_ids: checked_natural_researches_ids)
     end
   end
 
   def show(conn, %{"id" => id}) do
     find = Repo.get!(Find, id)
     find = Repo.preload find, [:conditions, :research_levels, :object_types,
-      :site_types, :cultures, :authors, :publications]
+      :site_types, :cultures, :authors, :publications, :natural_researches]
     # find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
     render(conn, "show.html", find: find)
   end
@@ -145,7 +152,7 @@ defmodule UaArchaeology.FindController do
   def edit(conn, %{"id" => id}) do
     find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
     find = Repo.preload find, [:conditions, :research_levels, :object_types,
-      :site_types, :cultures, :authors, :publications]
+      :site_types, :cultures, :authors, :publications, :natural_researches]
 
     find_conditions_ids = find.conditions |> Enum.map(&(&1.id))
     find_research_levels_ids = find.research_levels |> Enum.map(&(&1.id))
@@ -154,6 +161,7 @@ defmodule UaArchaeology.FindController do
     find_cultures_ids = find.cultures |> Enum.map(&(&1.id))
     find_authors_ids = find.authors |> Enum.map(&(&1.id))
     find_publications_ids = find.publications |> Enum.map(&(&1.id))
+    find_natural_researches_ids = find.natural_researches |> Enum.map(&(&1.id))
 
     changeset = Find.changeset(find)
     render(conn, "edit.html", find: find, changeset: changeset,
@@ -163,13 +171,14 @@ defmodule UaArchaeology.FindController do
                               find_site_types_ids: find_site_types_ids,
                               find_cultures_ids: find_cultures_ids,
                               find_authors_ids: find_authors_ids,
-                              find_publications_ids: find_publications_ids)
+                              find_publications_ids: find_publications_ids,
+                              find_natural_researches_ids: find_natural_researches_ids)
   end
 
   def update(conn, %{"id" => id, "find" => find_params}) do
     find = Repo.get!(assoc(conn.assigns[:user], :finds), id)
     find = Repo.preload find, [:conditions, :research_levels, :object_types,
-      :site_types, :cultures, :authors, :publications]
+      :site_types, :cultures, :authors, :publications, :natural_researches]
 
     # coords1 = {get_coords(find_params["coord1N"]),
     # get_coords(find_params["coord1E"])}
@@ -194,9 +203,9 @@ defmodule UaArchaeology.FindController do
     find_cultures_ids = find.cultures |> Enum.map(&(&1.id))
     find_authors_ids = find.authors |> Enum.map(&(&1.id))
     find_publications_ids = find.publications |> Enum.map(&(&1.id))
+    find_natural_researches_ids = find.natural_researches |> Enum.map(&(&1.id))
 
     changeset = Find.changeset(find, find_params)
-
     find_id = find.id
 
     checked_conditions_ids = checked_ids(conn, "checked_conditions")
@@ -206,6 +215,7 @@ defmodule UaArchaeology.FindController do
     checked_cultures_ids = checked_ids(conn, "checked_cultures")
     checked_authors_ids = checked_ids(conn, "checked_authors")
     checked_publications_ids = checked_ids(conn, "checked_publications")
+    checked_natural_researches_ids = checked_ids(conn, "checked_natural_researches_ids")
 
     case Repo.update(changeset) do
       {:ok, find} ->
@@ -223,6 +233,8 @@ defmodule UaArchaeology.FindController do
           checked_authors_ids)
         do_update_intermediate_table(FindPublication, find_id, [],
             checked_publications_ids)
+        do_update_intermediate_table(FindNaturalResearch, find_id, [],
+            checked_natural_researches_ids)
         conn
         |> put_flash(:info, "Археологічна пам'ятка успішно оновлена.")
         |> redirect(to: user_find_path(conn, :show, conn.assigns[:user], find))
@@ -381,5 +393,14 @@ defmodule UaArchaeology.FindController do
       |> Publication.names_and_ids
     publications = Repo.all query
     assign(conn, :publications, publications)
+  end
+
+  defp load_natural_researches(conn, _) do
+    query =
+      NaturalResearch
+      |> NaturalResearch.alphabetical
+      |> NaturalResearch.names_and_ids
+    natural_researches = Repo.all query
+    assign(conn, :natural_researches, natural_researches)
   end
 end

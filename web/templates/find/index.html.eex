@@ -23,7 +23,7 @@
   <%= for find <- @finds do %>
       <tr>
         <td><%= find.title %></td>
-        <td><%= find.idn %></td>
+        <td><%= find.id %></td>
         <td><%= find.topo %></td>
 
         <td class="text-right">
@@ -63,16 +63,25 @@
 
     var markers = [];
     <%= for find <- @finds do %>
-      bounds = getBoundByCoords(
-        "<%= find.coord1N %>", "<%= find.coord1E %>",
-        "<%= find.coord2N %>", "<%= find.coord2E %>",
-        "<%= find.coord3N %>", "<%= find.coord3E %>",
-        "<%= find.coord4N %>", "<%= find.coord3E %>");
+      // bounds = getBoundByCoords(
+      //   "<%= find.coord1N %>", "<%= find.coord1E %>",
+      //   "<%= find.coord2N %>", "<%= find.coord2E %>",
+      //   "<%= find.coord3N %>", "<%= find.coord3E %>",
+      //   "<%= find.coord4N %>", "<%= find.coord3E %>");
+      //
+      // map.setCenter(bounds.getCenter());
+      //
+      // var marker = new google.maps.Marker({
+      //   position: bounds.getCenter(),
+      //   map: map,
+      //   title: '<%= find.title %>'
+      // });
 
-      map.setCenter(bounds.getCenter());
-
+      lat = <%= find.lat %>
+      lng = <%= find.lng %>
+      map.setCenter({lat: lat, lng: lng}, 7);
       var marker = new google.maps.Marker({
-        position: bounds.getCenter(),
+        position: {lat: lat, lng: lng},
         map: map,
         title: '<%= find.title %>'
       });

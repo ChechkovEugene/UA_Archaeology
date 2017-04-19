@@ -10,6 +10,7 @@ defmodule UaArchaeology.Factory do
   alias UaArchaeology.Condition
   alias UaArchaeology.Publication
   alias UaArchaeology.Author
+  alias UaArchaeology.NaturalResearch
 
   def role_factory do
     %Role{
@@ -73,6 +74,13 @@ defmodule UaArchaeology.Factory do
   def publication_factory do
     %Publication{
       name: "Publication",
+      user: build(:user)
+    }
+  end
+
+  def natural_research_factory do
+    %NaturalResearch{
+      name: "NaturalResearch",
       user: build(:user)
     }
   end

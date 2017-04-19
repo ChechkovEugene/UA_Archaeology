@@ -15,6 +15,7 @@ defmodule UaArchaeology.User do
     has_many :authors, UaArchaeology.Author
     has_many :publications, UaArchaeology.Publication
     has_many :finds, UaArchaeology.Find
+    has_many :natural_researches, UaArchaeology.NaturalResearch
     belongs_to :role, UaArchaeology.Role
 
     timestamps()

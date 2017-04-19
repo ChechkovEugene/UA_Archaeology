@@ -1,12 +1,12 @@
-defmodule UaArchaeology.FindAuthor do
+defmodule UaArchaeology.FindNaturalResearch do
   use UaArchaeology.Web, :model
 
   @primary_key {:id, :id, autogenerate: false}
 
-  schema "finds_authors" do
+  schema "finds_natural_researches" do
     belongs_to :find, UaArchaeology.Find
-    belongs_to :author, UaArchaeology.Author, foreign_key: :parameter_id
-
+    belongs_to :natural_research, UaArchaeology.NaturalResearch,
+      foreign_key: :parameter_id
     # timestamps()
   end
 

@@ -24,13 +24,16 @@ defmodule UaArchaeology.Find do
     many_to_many :cultures, UaArchaeology.Culture,
         join_through: UaArchaeology.FindCulture,
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
-    field :description, :string
     many_to_many :authors, UaArchaeology.Author,
         join_through: UaArchaeology.FindAuthor,
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
     many_to_many :publications, UaArchaeology.Publication,
         join_through: UaArchaeology.FindPublication,
         join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
+    many_to_many :natural_researches, UaArchaeology.NaturalResearch,
+        join_through: UaArchaeology.FindNaturalResearch,
+        join_keys: [find_id: :id, parameter_id: :id], on_delete: :delete_all
+    field :description, :string
     field :register, :string
     field :passport, :string
     # field :coords1, Geo.Point
@@ -49,6 +52,10 @@ defmodule UaArchaeology.Find do
     field :layer_thickness, :decimal
     field :width, :decimal
     field :height, :decimal
+    field :lat,  :decimal
+    field :lng,  :decimal
+    field :start_date, :string
+    field :end_date, :string
     timestamps()
   end
 
@@ -57,9 +64,10 @@ defmodule UaArchaeology.Find do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :idn, :topo, :area,
-      :coord1N, :coord2N, :coord3N, :coord4N,
-      :coord1E, :coord2E, :coord3E, :coord4E])
-    |> validate_required([:title, :idn, :topo, :area])
+    |> cast(params, [:title, :topo, :area, :lat, :lng,
+      :start_date, :end_date, :another_name,
+      :storage_place, :archival_storage, :width, :height,
+      :register, :passport, :description])
+    |> validate_required([:title, :topo, :area, :lat, :lng])
   end
 end

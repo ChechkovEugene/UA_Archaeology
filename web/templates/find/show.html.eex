@@ -10,6 +10,31 @@
   </li>
 
   <li>
+    <strong>Широта:</strong>
+    <%= @find.lat %>
+  </li>
+
+  <li>
+    <strong>Довгота:</strong>
+    <%= @find.lng %>
+  </li>
+
+  <li>
+    <strong>Ширина:</strong>
+    <%= @find.width %>
+  </li>
+
+  <li>
+    <strong>Довжина:</strong>
+    <%= @find.height %>
+  </li>
+
+  <li>
+    <strong>Абсолютне датування:</strong>
+    <%= @find.start_date %> - <%= @find.end_date %>
+  </li>
+
+  <!-- <li>
     <strong>1N:</strong>
     <%= @find.coord1N %>
   </li>
@@ -52,7 +77,7 @@
   <li>
     <strong>4E:</strong>
     <%= @find.coord4E %>
-  </li>
+  </li> -->
 
   <li>
     <strong>Назва:</strong>
@@ -101,6 +126,13 @@
     <strong>Археологічні культури:</strong>
     <%= for culture <- @find.cultures do %>
     <%= culture.name <> "," %>
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Природничі дослідження:</strong>
+    <%= for natural_research <- @find.natural_researches do %>
+    <%= natural_research.name <> "," %>
     <% end %>
   </li>
 
@@ -159,16 +191,24 @@
       content: contentString
     });
 
-    bounds = getBoundByCoords(
-      "<%= @find.coord1N %>", "<%= @find.coord1E %>",
-      "<%= @find.coord2N %>", "<%= @find.coord2E %>",
-      "<%= @find.coord3N %>", "<%= @find.coord3E %>",
-      "<%= @find.coord4N %>", "<%= @find.coord3E %>");
-
-    map.setCenter(bounds.getCenter());
-
+    // bounds = getBoundByCoords(
+    //   "<%= @find.coord1N %>", "<%= @find.coord1E %>",
+    //   "<%= @find.coord2N %>", "<%= @find.coord2E %>",
+    //   "<%= @find.coord3N %>", "<%= @find.coord3E %>",
+    //   "<%= @find.coord4N %>", "<%= @find.coord3E %>");
+    //
+    // map.setCenter(bounds.getCenter());
+    //
+    // var marker = new google.maps.Marker({
+    //   position: bounds.getCenter(),
+    //   map: map,
+    //   title: '<%= @find.title %>'
+    // });
+    lat = <%= @find.lat %>
+    lng = <%= @find.lng %>
+    map.setCenter({lat: lat, lng: lng}, 7);
     var marker = new google.maps.Marker({
-      position: bounds.getCenter(),
+      position: {lat: lat, lng: lng},
       map: map,
       title: '<%= @find.title %>'
     });

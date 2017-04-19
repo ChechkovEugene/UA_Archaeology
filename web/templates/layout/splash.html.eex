@@ -43,9 +43,8 @@
           <% end %>
         </div>
         <div class="col-xs-4">
-          <h2>API</h2>
-          <p>Дозволяє стороннім розробникам отримувати відкриту інформацію з системи за
-            допомогою JSON API. Що дозволяє використовувати археологічні данні у власних проєктах</p>
+          <h2>XLS</h2>
+          <p>Дозволяє користувачам завантажувати попередньо існуючі дані у форматі xls.</p>
           <%= if current_user = @conn.assigns[:current_user] do %>
             <p><%= link "Далі ", to: user_find_path(@conn, :index, current_user.id), class: "btn btn-success" %></p>
           <% else %>

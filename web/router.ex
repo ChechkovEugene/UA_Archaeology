@@ -46,6 +46,9 @@ defmodule UaArchaeology.Router do
     resources "/users", UserController do
       resources "/publications", PublicationController
     end
+    resources "/users", UserController do
+      resources "/natural_researches", NaturalResearchController
+    end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 

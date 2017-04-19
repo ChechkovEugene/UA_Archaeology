@@ -20,7 +20,56 @@
           </div>
         </div>
       </div>
+      <!-- <div class="row">
+        <div class="col-xs-4">
+          <%= label f, :coord1N, "Координати пам’ятки: ", class: "control-label" %>
+        </div>
+        <div class="col-xs-7">
+        </div>
+      </div> -->
       <div class="row">
+        <div class="col-xs-4">
+          <%= label f, :lat, "Широта", class: "control-label" %>
+        </div>
+        <div class="col-xs-7">
+          <div class="form-group">
+            <%= text_input f, :lat, class: "form-control coord" %>
+            <%= error_tag f, :lat %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <%= label f, :lng, "Довгота", class: "control-label" %>
+        </div>
+        <div class="col-xs-7">
+          <div class="form-group">
+            <%= text_input f, :lng, class: "form-control coord" %>
+            <%= error_tag f, :lng %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <%= label f, :start_date, "Абсолютне датування", class: "control-label" %>
+        </div>
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= text_input f, :start_date, class: "form-control" %>
+            <%= error_tag f, :start_date %>
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <%= label f, :end_date, "-", class: "control-label" %>
+        </div>
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= text_input f, :end_date, class: "form-control" %>
+            <%= error_tag f, :end_date %>
+          </div>
+        </div>
+      </div>
+        <!-- <div class="row">
           <div class="col-xs-3">
             <%= label f, :coord1N, "Координати площі", class: "control-label" %>
           </div>
@@ -45,8 +94,8 @@
           <div class="col-xs-1">
             <%= label f, :coord1E, "E", class: "control-label" %>
           </div>
-        </div>
-        <div class="row">
+        </div> -->
+        <!-- <div class="row">
           <div class="col-xs-3">
           </div>
           <div class="col-xs-1">
@@ -120,7 +169,7 @@
           <div class="col-xs-1">
             <%= label f, :coord4E, "E", class: "control-label" %>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -243,19 +292,40 @@
     </div>
   </div>
 
-  <div class="form-group multiselect">
-    <div class="selectBox" onclick="showCheckboxes('cultures')">
-      <select>
-        <option>Археологічна культура</option>
-      </select>
-      <div class="overSelect"></div>
-    </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group multiselect">
+        <div class="selectBox" onclick="showCheckboxes('cultures')">
+          <select>
+            <option>Археологічна культура</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
 
-    <div id="cultures" class="checkboxes">
-      <%= for {name, id} <- @cultures do %>
-        <% checked = id in @find_cultures_ids %>
-        <div><%= checkbox :checked_cultures, "#{id}", value: name, checked: checked %> <%= name %></div>
-      <%= end %>
+        <div id="cultures" class="checkboxes">
+          <%= for {name, id} <- @cultures do %>
+            <% checked = id in @find_cultures_ids %>
+            <div><%= checkbox :checked_cultures, "#{id}", value: name, checked: checked %> <%= name %></div>
+          <%= end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="form-group multiselect">
+        <div class="selectBox" onclick="showCheckboxes('natural_researches')">
+          <select>
+            <option>Природничі дослідження</option>
+          </select>
+          <div class="overSelect"></div>
+        </div>
+
+        <div id="natural_researches" class="checkboxes">
+          <%= for {name, id} <- @natural_researches do %>
+            <% checked = id in @find_natural_researches_ids %>
+            <div><%= checkbox :checked_natural_researches, "#{id}", value: name, checked: checked %> <%= name %></div>
+          <%= end %>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -383,8 +453,19 @@
       center: {lat: 49.0275, lng: 31.482778},
       zoom: 7
     });
+    var lat = parseFloat(<%= @changeset.data.lat %>)
+    var lng = parseFloat(<%= @changeset.data.lng %>)
+    if (!isNaN(lat) && !isNaN(lng)) {
+      map.setCenter({lat: lat,
+        lng: lng});
+    } else {
+      lat = document.getElementById('find_lat').value;
+      lng = document.getElementById('find_lng').value;
+      if (lat && lng) {
+        map.setCenter({lat: parseFloat(lat), lng: parseFloat(lng)});
+      }
+    }
   }
-
 var expanded = false;
 
 function showCheckboxes(name) {
@@ -400,22 +481,26 @@ function showCheckboxes(name) {
 
 window.addEventListener('input', function (e) {
   if ($(event.target).attr('class') == "form-control coord") {
-    coord1N = document.getElementById('find_coord1N').value;
-    coord1E = document.getElementById('find_coord1E').value;
-    coord2N = document.getElementById('find_coord2N').value;
-    coord2E = document.getElementById('find_coord2E').value;
-    coord3N = document.getElementById('find_coord3N').value;
-    coord3E = document.getElementById('find_coord3E').value;
-    coord4N = document.getElementById('find_coord4N').value;
-    coord4E = document.getElementById('find_coord4E').value;
+    // coord1N = document.getElementById('find_coord1N').value;
+    // coord1E = document.getElementById('find_coord1E').value;
+    // coord2N = document.getElementById('find_coord2N').value;
+    // coord2E = document.getElementById('find_coord2E').value;
+    // coord3N = document.getElementById('find_coord3N').value;
+    // coord3E = document.getElementById('find_coord3E').value;
+    // coord4N = document.getElementById('find_coord4N').value;
+    // coord4E = document.getElementById('find_coord4E').value;
+    //
+    //
+    // bounds = getBoundByCoords(coord1N, coord1E,
+    //   coord2N, coord2E,
+    //   coord3N, coord3E,
+    //   coord4N, coord3E);
+    // map.setCenter(bounds.getCenter());
 
+    lat = document.getElementById('find_lat').value;
 
-    bounds = getBoundByCoords(coord1N, coord1E,
-      coord2N, coord2E,
-      coord3N, coord3E,
-      coord4N, coord3E);
-
-    map.setCenter(bounds.getCenter());
+    lng = document.getElementById('find_lng').value;
+    map.setCenter({lat: parseFloat(lat), lng: parseFloat(lng)});
   }
 }, false);
 

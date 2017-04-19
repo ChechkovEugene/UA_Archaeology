@@ -8,4 +8,5 @@ alias UaArchaeology.Author
 alias UaArchaeology.Condition
 alias UaArchaeology.Publication
 alias UaArchaeology.Repo
+alias UaArchaeology.NaturalResearch
 import Ecto

@@ -1,0 +1,14 @@
+<h2>Види природничих досліджень</h2>
+
+<ul>
+
+  <li>
+    <strong>Вид природничих досліджень:</strong>
+    <%= @natural_research.name %>
+  </li>
+
+</ul>
+
+<%= link "Редагувати", to: user_natural_research_path(@conn, :edit, @user,
+  @natural_research) %>
+<%= link "Назад", to: user_natural_research_path(@conn, :index, @user) %>

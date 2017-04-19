@@ -33,6 +33,7 @@
                          <li><%= link "Публікації", to: user_publication_path(@conn, :index, current_user.id) %></li>
                          <li><%= link "Рівні дослідженості", to: user_research_level_path(@conn, :index, current_user.id) %></li>
                          <li><%= link "Типи пам'яток", to: user_site_type_path(@conn, :index, current_user.id) %></li>
+                         <li><%= link "Види природничих досліджень", to: user_natural_research_path(@conn, :index, current_user.id) %></li>
                      </ul>
                  </li>
               <% else %>

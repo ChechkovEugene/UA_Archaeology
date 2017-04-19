@@ -1,0 +1,30 @@
+<h2>Види природничих досліджень</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Вид природничих досліджень</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for natural_research <- @natural_researches do %>
+    <tr>
+      <td><%= natural_research.name %></td>
+
+      <td class="text-right">
+        <%= link "Переглянути", to: user_natural_research_path(@conn, :show, @user,
+          natural_research), class: "btn btn-default btn-xs" %>
+        <%= link "Редагувати", to: user_natural_research_path(@conn, :edit, @user,
+          natural_research), class: "btn btn-default btn-xs" %>
+        <%= link "Видалити", to: user_natural_research_path(@conn, :delete, @user,
+          natural_research), method: :delete, data: [confirm: "Ви впевнені?"],
+          class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "Новий вид природничих досліджень", to: user_natural_research_path(@conn, :new, @user) %>

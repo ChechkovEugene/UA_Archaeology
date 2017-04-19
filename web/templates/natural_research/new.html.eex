@@ -1,0 +1,6 @@
+<h2>Новий вид природничих досліджень</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: user_natural_research_path(@conn, :create, @user) %>
+
+<%= link "Назад", to: user_natural_research_path(@conn, :index, @user) %>

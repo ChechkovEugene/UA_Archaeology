@@ -15,6 +15,7 @@ alias UaArchaeology.Role
 alias UaArchaeology.User
 alias UaArchaeology.SiteType
 alias UaArchaeology.Culture
+alias UaArchaeology.NaturalResearch
 
 import Ecto.Query, only: [from: 2]
 
@@ -85,6 +86,17 @@ find_or_create_condition = fn name, user ->
   end
 end
 
+find_or_create_natural_research = fn name, user ->
+  case Repo.all(from nr in NaturalResearch, where: u.name== ^name) do
+    [] ->
+      %NaturalResearch{}
+      |> NaturalResearch.changeset(%{name: name, user_id: user.id})
+      |> Repo.insert!()
+    _ ->
+      IO.puts "Natural research: #{name} already exists, skipping"
+  end
+end
+
 _user_role  = find_or_create_role.("User Role", false)
 admin_role  = find_or_create_role.("Admin Role", true)
 admin_user = find_or_create_user.("admin", "admin@test.com", admin_role)
@@ -125,3 +137,13 @@ _culture = find_or_create_condition.("ореться", admin_user)
 _culture = find_or_create_condition.("забудовується", admin_user)
 _culture = find_or_create_condition.("кар’єри", admin_user)
 _culture = find_or_create_condition.("розмивається водою", admin_user)
+
+_natural_research = find_or_create_natural_research.("антропологічний", admin_user)
+_natural_research = find_or_create_natural_research.("археозоологічний", admin_user)
+_natural_research = find_or_create_natural_research.("палеоботанічний", admin_user)
+_natural_research = find_or_create_natural_research.("споропилковий", admin_user)
+_natural_research = find_or_create_natural_research.("фізико-хімічний", admin_user)
+_natural_research = find_or_create_natural_research.("ґрунтознавчий", admin_user)
+_natural_research = find_or_create_natural_research.("геофізичний", admin_user)
+_natural_research = find_or_create_natural_research.("металографічний", admin_user)
+_natural_research = find_or_create_natural_research.("петрографічний", admin_user)
