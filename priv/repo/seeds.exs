@@ -87,7 +87,7 @@ find_or_create_condition = fn name, user ->
 end
 
 find_or_create_natural_research = fn name, user ->
-  case Repo.all(from nr in NaturalResearch, where: c.name== ^name) do
+  case Repo.all(from nr in NaturalResearch, where: nr.name== ^name) do
     [] ->
       %NaturalResearch{}
       |> NaturalResearch.changeset(%{name: name, user_id: user.id})
